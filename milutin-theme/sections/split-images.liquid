@@ -1,0 +1,179 @@
+{%- liquid
+  assign layout = section.settings.layout
+  assign gap = section.settings.gap
+  assign height = section.settings.height
+-%}
+
+<section
+  class="split-images split-images--{{ layout }} split-images--gap-{{ gap }} split-images--{{ height }}"
+  data-section-id="{{ section.id }}"
+>
+  <div class="split-images__grid">
+    {%- for block in section.blocks -%}
+      <div class="split-images__item" {{ block.shopify_attributes }} data-animate data-animate-delay="{{ forloop.index | times: 100 }}">
+        <a href="{{ block.settings.link }}" class="split-images__link">
+          <div class="split-images__media">
+            {%- if block.settings.video != blank -%}
+              {{ block.settings.video | video_tag:
+                autoplay: true,
+                loop: true,
+                muted: true,
+                playsinline: true,
+                class: 'split-images__video'
+              }}
+            {%- elsif block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 1200 | image_tag:
+                class: 'split-images__image',
+                loading: 'lazy',
+                widths: '400, 600, 800, 1000, 1200'
+              }}
+            {%- else -%}
+              <div class="split-images__placeholder">
+                {{ 'collection-1' | placeholder_svg_tag }}
+              </div>
+            {%- endif -%}
+
+            {%- if block.settings.overlay_opacity > 0 -%}
+              <div class="split-images__overlay" style="--overlay-opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }}"></div>
+            {%- endif -%}
+          </div>
+
+          <div class="split-images__content" style="--text-color: {{ block.settings.text_color }}">
+            {%- if block.settings.subtitle != blank -%}
+              <span class="split-images__subtitle">{{ block.settings.subtitle }}</span>
+            {%- endif -%}
+            {%- if block.settings.title != blank -%}
+              <h2 class="split-images__title">{{ block.settings.title }}</h2>
+            {%- endif -%}
+            {%- if block.settings.button_text != blank -%}
+              <span class="split-images__button">{{ block.settings.button_text }}</span>
+            {%- endif -%}
+          </div>
+        </a>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Split images",
+  "tag": "section",
+  "class": "section-split-images",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "equal", "label": "Equal columns" },
+        { "value": "left-large", "label": "Left larger" },
+        { "value": "right-large", "label": "Right larger" }
+      ],
+      "default": "equal"
+    },
+    {
+      "type": "select",
+      "id": "gap",
+      "label": "Gap between images",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" }
+      ],
+      "default": "small"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Height",
+      "options": [
+        { "value": "full", "label": "Full screen" },
+        { "value": "large", "label": "Large (80vh)" },
+        { "value": "medium", "label": "Medium (60vh)" }
+      ],
+      "default": "large"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image block",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video (optional)",
+          "info": "Will override image"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "New Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "ŽENE"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "POGLEDAJ"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 70,
+          "step": 5,
+          "default": 10,
+          "unit": "%",
+          "label": "Overlay opacity"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Split images",
+      "blocks": [
+        {
+          "type": "image",
+          "settings": {
+            "title": "ŽENE",
+            "subtitle": "Nova Kolekcija"
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "title": "MUŠKARCI",
+            "subtitle": "Nova Kolekcija"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

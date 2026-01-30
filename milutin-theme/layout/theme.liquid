@@ -33,6 +33,7 @@
     {{ 'section-header.css' | asset_url | stylesheet_tag }}
     {{ 'section-footer.css' | asset_url | stylesheet_tag }}
     {{ 'section-search.css' | asset_url | stylesheet_tag }}
+    {{ 'sections-homepage.css' | asset_url | stylesheet_tag }}
 
     {%- unless settings.type_body_font.system? -%}
       {{ settings.type_body_font | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
@@ -95,6 +96,7 @@
 
     <script src="{{ 'section-header.js' | asset_url }}" defer></script>
     <script src="{{ 'section-search.js' | asset_url }}" defer></script>
+    <script src="{{ 'sections-homepage.js' | asset_url }}" defer></script>
 
     {%- if settings.cart_type == 'drawer' -%}
       {% render 'cart-drawer' %}

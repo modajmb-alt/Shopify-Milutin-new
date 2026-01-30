@@ -1,0 +1,159 @@
+{%- liquid
+  assign image = section.settings.image
+  assign video = section.settings.video
+  assign heading = section.settings.heading
+  assign text = section.settings.text
+  assign button_text = section.settings.button_text
+  assign button_link = section.settings.button_link
+  assign layout = section.settings.layout
+  assign image_width = section.settings.image_width
+  assign text_alignment = section.settings.text_alignment
+  assign color_scheme = section.settings.color_scheme
+-%}
+
+<section
+  class="image-with-text image-with-text--{{ layout }} image-with-text--image-{{ image_width }} image-with-text--{{ color_scheme }}"
+  data-section-id="{{ section.id }}"
+>
+  <div class="image-with-text__grid">
+    <div class="image-with-text__media" data-animate data-animate-slide="{{ layout }}">
+      {%- if video != blank -%}
+        {{ video | video_tag:
+          autoplay: true,
+          loop: true,
+          muted: true,
+          playsinline: true,
+          class: 'image-with-text__video'
+        }}
+      {%- elsif image != blank -%}
+        {{ image | image_url: width: 1200 | image_tag:
+          class: 'image-with-text__image',
+          loading: 'lazy',
+          widths: '400, 600, 800, 1000, 1200'
+        }}
+      {%- else -%}
+        <div class="image-with-text__placeholder">
+          {{ 'lifestyle-2' | placeholder_svg_tag }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="image-with-text__content" data-animate data-animate-delay="200">
+      <div class="image-with-text__content-inner image-with-text__content-inner--{{ text_alignment }}">
+        {%- if heading != blank -%}
+          <h2 class="image-with-text__heading">{{ heading }}</h2>
+        {%- endif -%}
+        {%- if text != blank -%}
+          <div class="image-with-text__text">{{ text }}</div>
+        {%- endif -%}
+        {%- if button_text != blank and button_link != blank -%}
+          <a href="{{ button_link }}" class="image-with-text__button btn btn--secondary">
+            {{ button_text }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "tag": "section",
+  "class": "section-image-with-text",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video (optional)",
+      "info": "Will override image"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "DIZAJNIRANO ZA VAS"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Svaki komad u našoj kolekciji pažljivo je odabran da odražava moderan stil i bezvremensku eleganciju.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "SAZNAJ VIŠE"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Image position",
+      "options": [
+        { "value": "image-left", "label": "Image left" },
+        { "value": "image-right", "label": "Image right" }
+      ],
+      "default": "image-left"
+    },
+    {
+      "type": "select",
+      "id": "image_width",
+      "label": "Image width",
+      "options": [
+        { "value": "half", "label": "Half (50%)" },
+        { "value": "large", "label": "Large (60%)" },
+        { "value": "small", "label": "Small (40%)" }
+      ],
+      "default": "half"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "light", "label": "Light" },
+        { "value": "dark", "label": "Dark" }
+      ],
+      "default": "light"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with text"
+    }
+  ]
+}
+{% endschema %}

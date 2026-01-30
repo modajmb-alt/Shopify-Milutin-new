@@ -1,0 +1,179 @@
+{%- liquid
+  assign image = section.settings.image
+  assign image_mobile = section.settings.image_mobile
+  assign video = section.settings.video
+  assign heading = section.settings.heading
+  assign subheading = section.settings.subheading
+  assign button_text = section.settings.button_text
+  assign button_link = section.settings.button_link
+  assign height = section.settings.height
+  assign text_position = section.settings.text_position
+  assign text_color = section.settings.text_color
+  assign overlay_opacity = section.settings.overlay_opacity
+  assign parallax = section.settings.parallax
+-%}
+
+<section
+  class="full-width-image full-width-image--{{ height }} full-width-image--text-{{ text_position }}{% if parallax %} full-width-image--parallax{% endif %}"
+  data-section-id="{{ section.id }}"
+  {% if parallax %}data-parallax{% endif %}
+>
+  <div class="full-width-image__media">
+    {%- if video != blank -%}
+      {{ video | video_tag:
+        autoplay: true,
+        loop: true,
+        muted: true,
+        playsinline: true,
+        class: 'full-width-image__video'
+      }}
+    {%- elsif image != blank -%}
+      <picture>
+        {%- if image_mobile != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ image_mobile | image_url: width: 800 }}">
+        {%- endif -%}
+        {{ image | image_url: width: 2000 | image_tag:
+          class: 'full-width-image__image',
+          loading: 'lazy',
+          widths: '800, 1200, 1600, 2000'
+        }}
+      </picture>
+    {%- else -%}
+      <div class="full-width-image__placeholder">
+        {{ 'lifestyle-1' | placeholder_svg_tag }}
+      </div>
+    {%- endif -%}
+
+    {%- if overlay_opacity > 0 -%}
+      <div class="full-width-image__overlay" style="--overlay-opacity: {{ overlay_opacity | divided_by: 100.0 }}"></div>
+    {%- endif -%}
+  </div>
+
+  {%- if heading != blank or subheading != blank or button_text != blank -%}
+    <div class="full-width-image__content" style="--text-color: {{ text_color }}">
+      <div class="container">
+        <div class="full-width-image__text" data-animate>
+          {%- if subheading != blank -%}
+            <span class="full-width-image__subheading">{{ subheading }}</span>
+          {%- endif -%}
+          {%- if heading != blank -%}
+            <h2 class="full-width-image__heading">{{ heading }}</h2>
+          {%- endif -%}
+          {%- if button_text != blank and button_link != blank -%}
+            <a href="{{ button_link }}" class="full-width-image__button btn btn--primary">
+              {{ button_text }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Full width image",
+  "tag": "section",
+  "class": "section-full-width-image",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Height",
+      "options": [
+        { "value": "small", "label": "Small (40vh)" },
+        { "value": "medium", "label": "Medium (60vh)" },
+        { "value": "large", "label": "Large (80vh)" },
+        { "value": "full", "label": "Full screen" }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text position",
+      "options": [
+        { "value": "center", "label": "Center" },
+        { "value": "bottom-left", "label": "Bottom left" },
+        { "value": "bottom-center", "label": "Bottom center" },
+        { "value": "top-left", "label": "Top left" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 70,
+      "step": 5,
+      "default": 20,
+      "unit": "%",
+      "label": "Overlay opacity"
+    },
+    {
+      "type": "checkbox",
+      "id": "parallax",
+      "label": "Enable parallax effect",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Full width image"
+    }
+  ]
+}
+{% endschema %}

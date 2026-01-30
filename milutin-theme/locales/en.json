@@ -47,7 +47,8 @@
     "returns": "Returns",
     "size_guide": "Size guide",
     "view_product": "View product",
-    "quick_view": "Quick view"
+    "quick_view": "Quick view",
+    "view_all": "View all"
   },
   "cart": {
     "title": "Cart",

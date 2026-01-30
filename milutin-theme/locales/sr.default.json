@@ -47,7 +47,8 @@
     "returns": "Povraćaj",
     "size_guide": "Vodič za veličine",
     "view_product": "Pogledaj proizvod",
-    "quick_view": "Brzi pregled"
+    "quick_view": "Brzi pregled",
+    "view_all": "Pogledaj sve"
   },
   "cart": {
     "title": "Korpa",
