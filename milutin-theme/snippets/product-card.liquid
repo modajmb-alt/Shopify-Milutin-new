@@ -1,0 +1,82 @@
+{%- comment -%}
+  Product Card
+  Displays product with image, title, price
+
+  Parameters:
+  - product: Product object (required)
+  - show_secondary_image: Boolean (optional, default: true)
+  - lazy_load: Boolean (optional, default: true)
+{%- endcomment -%}
+
+{%- liquid
+  assign show_secondary_image = show_secondary_image | default: true
+  assign lazy_load = lazy_load | default: true
+  assign loading = 'lazy'
+  if lazy_load == false
+    assign loading = 'eager'
+  endif
+-%}
+
+<div class="product-card">
+  <a href="{{ product.url }}" class="product-card__link">
+    <div class="product-card__media">
+      {%- if product.featured_image -%}
+        {{ product.featured_image | image_url: width: 600 | image_tag:
+          class: 'product-card__image product-card__image--primary',
+          loading: loading,
+          alt: product.featured_image.alt | escape,
+          widths: '200, 300, 400, 600'
+        }}
+
+        {%- if show_secondary_image and product.images.size > 1 -%}
+          {{ product.images[1] | image_url: width: 600 | image_tag:
+            class: 'product-card__image product-card__image--secondary',
+            loading: 'lazy',
+            alt: product.images[1].alt | escape,
+            widths: '200, 300, 400, 600'
+          }}
+        {%- endif -%}
+      {%- else -%}
+        <div class="product-card__placeholder">
+          {{ 'product-1' | placeholder_svg_tag: 'product-card__placeholder-svg' }}
+        </div>
+      {%- endif -%}
+
+      {%- if product.available == false -%}
+        <span class="product-card__badge product-card__badge--sold-out">
+          {{ 'products.sold_out' | t }}
+        </span>
+      {%- elsif product.compare_at_price > product.price -%}
+        {%- assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+        <span class="product-card__badge product-card__badge--sale">
+          -{{ discount }}%
+        </span>
+      {%- endif -%}
+    </div>
+
+    <div class="product-card__info">
+      <h3 class="product-card__title">{{ product.title }}</h3>
+
+      <div class="product-card__price">
+        {%- if product.compare_at_price > product.price -%}
+          <span class="product-card__price-sale">{{ product.price | money }}</span>
+          <s class="product-card__price-compare">{{ product.compare_at_price | money }}</s>
+        {%- else -%}
+          <span class="product-card__price-regular">{{ product.price | money }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- if product.options_with_values.size > 0 -%}
+        {%- for option in product.options_with_values -%}
+          {%- if option.name == 'Color' or option.name == 'Boja' -%}
+            {%- if option.values.size > 1 -%}
+              <div class="product-card__colors">
+                <span class="product-card__colors-count">{{ option.values.size }} {{ 'products.color' | t | downcase }}</span>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </a>
+</div>

@@ -1,0 +1,48 @@
+{%- comment -%}
+  Search Modal
+  Full-screen overlay search with predictive results
+{%- endcomment -%}
+
+<search-modal class="search-modal" id="SearchModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="{{ 'search.title' | t }}">
+  <div class="search-modal__overlay" data-search-overlay></div>
+
+  <div class="search-modal__container">
+    <div class="search-modal__header">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-modal__form">
+        <label for="SearchInput" class="visually-hidden">{{ 'search.title' | t }}</label>
+        <input
+          type="search"
+          id="SearchInput"
+          name="q"
+          class="search-modal__input"
+          placeholder="{{ 'search.placeholder' | t }}"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+          data-search-input
+        >
+        <input type="hidden" name="type" value="product">
+        <button type="submit" class="search-modal__submit icon-btn" aria-label="{{ 'search.submit' | t }}">
+          {% render 'icon-search' %}
+        </button>
+      </form>
+
+      <button
+        type="button"
+        class="search-modal__close icon-btn"
+        aria-label="{{ 'general.close' | t }}"
+        data-search-close
+      >
+        {% render 'icon-close' %}
+      </button>
+    </div>
+
+    <div class="search-modal__results" data-search-results>
+      {%- comment -%} Predictive search results will be injected here {%- endcomment -%}
+      <div class="search-modal__placeholder">
+        <p class="search-modal__hint">{{ 'search.placeholder' | t }}</p>
+      </div>
+    </div>
+  </div>
+</search-modal>

@@ -1,0 +1,74 @@
+{%- comment -%}
+  Predictive Search Results
+  Rendered via AJAX when user types in search
+
+  Variables:
+  - predictive_search.resources.products
+  - predictive_search.resources.collections
+  - predictive_search.resources.articles
+  - predictive_search.resources.pages
+{%- endcomment -%}
+
+{%- if predictive_search.performed -%}
+  <div class="predictive-search" data-predictive-search>
+    {%- if predictive_search.resources.products.size > 0 or predictive_search.resources.collections.size > 0 -%}
+
+      {%- if predictive_search.resources.products.size > 0 -%}
+        <div class="predictive-search__section">
+          <h3 class="predictive-search__heading">{{ 'search.products' | t }}</h3>
+          <ul class="predictive-search__list" role="list">
+            {%- for product in predictive_search.resources.products -%}
+              <li class="predictive-search__item">
+                <a href="{{ product.url }}" class="predictive-search__link">
+                  {%- if product.featured_image -%}
+                    <div class="predictive-search__image">
+                      {{ product.featured_image | image_url: width: 100 | image_tag:
+                        loading: 'lazy',
+                        alt: product.featured_image.alt | escape
+                      }}
+                    </div>
+                  {%- endif -%}
+                  <div class="predictive-search__content">
+                    <span class="predictive-search__title">{{ product.title }}</span>
+                    <span class="predictive-search__price">
+                      {%- if product.compare_at_price > product.price -%}
+                        <s class="predictive-search__price-compare">{{ product.compare_at_price | money }}</s>
+                      {%- endif -%}
+                      {{ product.price | money }}
+                    </span>
+                  </div>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- if predictive_search.resources.collections.size > 0 -%}
+        <div class="predictive-search__section">
+          <h3 class="predictive-search__heading">{{ 'search.collections' | t }}</h3>
+          <ul class="predictive-search__list predictive-search__list--collections" role="list">
+            {%- for collection in predictive_search.resources.collections -%}
+              <li class="predictive-search__item">
+                <a href="{{ collection.url }}" class="predictive-search__link predictive-search__link--collection">
+                  {{ collection.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      <div class="predictive-search__footer">
+        <a href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&type=product" class="predictive-search__view-all btn btn--secondary">
+          {{ 'search.view_all' | t: count: predictive_search.resources.products_count }}
+        </a>
+      </div>
+
+    {%- else -%}
+      <div class="predictive-search__no-results">
+        <p>{{ 'search.no_results' | t: query: predictive_search.terms }}</p>
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}

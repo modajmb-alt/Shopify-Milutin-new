@@ -96,13 +96,14 @@
         {%- comment -%} Icons (Right) {%- endcomment -%}
         <div class="header__icons">
           {%- comment -%} Search {%- endcomment -%}
-          <a
-            href="{{ routes.search_url }}"
+          <button
+            type="button"
             class="header__icon icon-btn"
             aria-label="{{ 'header.search' | t }}"
+            data-search-trigger
           >
             {% render 'icon-search' %}
-          </a>
+          </button>
 
           {%- comment -%} Account (Desktop only) {%- endcomment -%}
           {%- if shop.customer_accounts_enabled -%}

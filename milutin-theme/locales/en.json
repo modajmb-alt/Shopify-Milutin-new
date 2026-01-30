@@ -129,6 +129,12 @@
     "placeholder": "What are you looking for?",
     "submit": "Search",
     "no_results": "No results for \"{{ query }}\"",
+    "no_results_short": "No results for",
+    "empty": "Enter a search term",
+    "for": "for",
+    "products": "Products",
+    "collections": "Collections",
+    "view_all": "View all results ({{ count }})",
     "results_count": {
       "one": "{{ count }} result",
       "other": "{{ count }} results"

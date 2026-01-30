@@ -32,6 +32,7 @@
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'section-header.css' | asset_url | stylesheet_tag }}
     {{ 'section-footer.css' | asset_url | stylesheet_tag }}
+    {{ 'section-search.css' | asset_url | stylesheet_tag }}
 
     {%- unless settings.type_body_font.system? -%}
       {{ settings.type_body_font | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
@@ -66,6 +67,15 @@
     </style>
 
     <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+    <script>
+      window.routes = {
+        predictive_search_url: '{{ routes.predictive_search_url }}'
+      };
+      window.translations = {
+        searchPlaceholder: {{ 'search.placeholder' | t | json }},
+        searchNoResults: {{ 'search.no_results_short' | t | json }}
+      };
+    </script>
   </head>
 
   <body class="template-{{ template.name }}{% if template.suffix %} template-{{ template.name }}-{{ template.suffix }}{% endif %}">
@@ -81,7 +91,10 @@
 
     {% sections 'footer-group' %}
 
+    {% render 'search-modal' %}
+
     <script src="{{ 'section-header.js' | asset_url }}" defer></script>
+    <script src="{{ 'section-search.js' | asset_url }}" defer></script>
 
     {%- if settings.cart_type == 'drawer' -%}
       {% render 'cart-drawer' %}

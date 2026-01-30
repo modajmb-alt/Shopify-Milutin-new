@@ -129,6 +129,12 @@
     "placeholder": "Šta tražite?",
     "submit": "Pretraži",
     "no_results": "Nema rezultata za \"{{ query }}\"",
+    "no_results_short": "Nema rezultata za",
+    "empty": "Unesite pojam za pretragu",
+    "for": "za",
+    "products": "Proizvodi",
+    "collections": "Kolekcije",
+    "view_all": "Pogledaj sve rezultate ({{ count }})",
     "results_count": {
       "one": "{{ count }} rezultat",
       "other": "{{ count }} rezultata"
