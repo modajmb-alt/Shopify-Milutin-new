@@ -1,42 +1,343 @@
-{%- comment -%}
-  Footer Section - Placeholder
-  Full implementation planned for next phase
-{%- endcomment -%}
+{%- liquid
+  assign show_newsletter = section.settings.show_newsletter
+  assign newsletter_heading = section.settings.newsletter_heading
+  assign newsletter_text = section.settings.newsletter_text
+  assign show_social = section.settings.show_social
+  assign show_payment = section.settings.show_payment
+  assign copyright_text = section.settings.copyright_text
+-%}
 
 <footer class="footer">
-  <div class="container">
-    <div class="footer__inner">
-      <div class="footer__copyright">
-        <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ 'footer.copyright' | t: year: 'now' | date: '%Y' }}</p>
+  {%- if show_newsletter -%}
+    <div class="footer__newsletter">
+      <div class="container">
+        <div class="footer__newsletter-inner">
+          <div class="footer__newsletter-content">
+            {%- if newsletter_heading != blank -%}
+              <h2 class="footer__newsletter-heading">{{ newsletter_heading }}</h2>
+            {%- endif -%}
+            {%- if newsletter_text != blank -%}
+              <p class="footer__newsletter-text">{{ newsletter_text }}</p>
+            {%- endif -%}
+          </div>
+          <div class="footer__newsletter-form">
+            {% form 'customer', class: 'newsletter-form' %}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <div class="newsletter-form__field">
+                <label for="NewsletterEmail" class="visually-hidden">{{ 'footer.newsletter.placeholder' | t }}</label>
+                <input
+                  type="email"
+                  name="contact[email]"
+                  id="NewsletterEmail"
+                  class="newsletter-form__input"
+                  placeholder="{{ 'footer.newsletter.placeholder' | t }}"
+                  required
+                  autocomplete="email"
+                >
+                <button type="submit" class="newsletter-form__submit btn btn--primary">
+                  {{ 'footer.newsletter.submit' | t }}
+                </button>
+              </div>
+              {%- if form.posted_successfully? -%}
+                <p class="newsletter-form__success">{{ 'footer.newsletter.success' | t }}</p>
+              {%- endif -%}
+              {%- if form.errors -%}
+                <p class="newsletter-form__error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+              {%- endif -%}
+            {% endform %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="footer__main">
+    <div class="container">
+      <div class="footer__grid">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'menu' -%}
+              <div class="footer__column" {{ block.shopify_attributes }}>
+                {%- if block.settings.heading != blank -%}
+                  <h3 class="footer__heading">{{ block.settings.heading }}</h3>
+                {%- endif -%}
+                {%- if block.settings.menu != blank -%}
+                  <ul class="footer__list" role="list">
+                    {%- for link in linklists[block.settings.menu].links -%}
+                      <li class="footer__item">
+                        <a href="{{ link.url }}" class="footer__link">{{ link.title }}</a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </div>
+
+            {%- when 'text' -%}
+              <div class="footer__column footer__column--text" {{ block.shopify_attributes }}>
+                {%- if block.settings.heading != blank -%}
+                  <h3 class="footer__heading">{{ block.settings.heading }}</h3>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <div class="footer__text">{{ block.settings.text }}</div>
+                {%- endif -%}
+              </div>
+
+            {%- when 'contact' -%}
+              <div class="footer__column footer__column--contact" {{ block.shopify_attributes }}>
+                {%- if block.settings.heading != blank -%}
+                  <h3 class="footer__heading">{{ block.settings.heading }}</h3>
+                {%- endif -%}
+                <ul class="footer__contact-list" role="list">
+                  {%- if block.settings.address != blank -%}
+                    <li class="footer__contact-item">
+                      {% render 'icon-pin' %}
+                      <span>{{ block.settings.address }}</span>
+                    </li>
+                  {%- endif -%}
+                  {%- if block.settings.phone != blank -%}
+                    <li class="footer__contact-item">
+                      {% render 'icon-phone' %}
+                      <a href="tel:{{ block.settings.phone | remove: ' ' }}">{{ block.settings.phone }}</a>
+                    </li>
+                  {%- endif -%}
+                  {%- if block.settings.email != blank -%}
+                    <li class="footer__contact-item">
+                      {% render 'icon-email' %}
+                      <a href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a>
+                    </li>
+                  {%- endif -%}
+                </ul>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container">
+      <div class="footer__bottom-inner">
+        {%- if show_social -%}
+          <div class="footer__social">
+            <span class="footer__social-label">{{ 'footer.social.follow_us' | t }}</span>
+            <ul class="footer__social-list" role="list">
+              {%- if settings.social_instagram_link != blank -%}
+                <li>
+                  <a href="{{ settings.social_instagram_link }}" class="footer__social-link" aria-label="Instagram" target="_blank" rel="noopener">
+                    {% render 'icon-instagram' %}
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_facebook_link != blank -%}
+                <li>
+                  <a href="{{ settings.social_facebook_link }}" class="footer__social-link" aria-label="Facebook" target="_blank" rel="noopener">
+                    {% render 'icon-facebook' %}
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_twitter_link != blank -%}
+                <li>
+                  <a href="{{ settings.social_twitter_link }}" class="footer__social-link" aria-label="Twitter" target="_blank" rel="noopener">
+                    {% render 'icon-twitter' %}
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_tiktok_link != blank -%}
+                <li>
+                  <a href="{{ settings.social_tiktok_link }}" class="footer__social-link" aria-label="TikTok" target="_blank" rel="noopener">
+                    {% render 'icon-tiktok' %}
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_pinterest_link != blank -%}
+                <li>
+                  <a href="{{ settings.social_pinterest_link }}" class="footer__social-link" aria-label="Pinterest" target="_blank" rel="noopener">
+                    {% render 'icon-pinterest' %}
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_youtube_link != blank -%}
+                <li>
+                  <a href="{{ settings.social_youtube_link }}" class="footer__social-link" aria-label="YouTube" target="_blank" rel="noopener">
+                    {% render 'icon-youtube' %}
+                  </a>
+                </li>
+              {%- endif -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        {%- if show_payment -%}
+          <div class="footer__payment">
+            <span class="visually-hidden">{{ 'footer.links.payment' | t }}</span>
+            <ul class="footer__payment-list" role="list">
+              {%- for type in shop.enabled_payment_types -%}
+                <li class="footer__payment-item">
+                  {{ type | payment_type_svg_tag: class: 'footer__payment-icon' }}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        <div class="footer__copyright">
+          <p>
+            &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}.
+            {%- if copyright_text != blank -%}
+              {{ copyright_text }}
+            {%- endif -%}
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </footer>
 
-<style>
-  .footer {
-    padding: var(--spacing-8) 0;
-    border-top: 1px solid var(--color-border);
-    margin-top: auto;
-  }
-
-  .footer__inner {
-    text-align: center;
-  }
-
-  .footer__copyright {
-    font-size: var(--font-size-sm);
-    color: var(--color-accent);
-  }
-
-  .footer__copyright p {
-    margin: 0;
-  }
-</style>
-
 {% schema %}
 {
   "name": "Footer",
-  "settings": []
+  "class": "section-footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show newsletter signup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Heading",
+      "default": "Prijavite se na naš newsletter"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_text",
+      "label": "Description",
+      "default": "Budite prvi koji će saznati o novim kolekcijama i ekskluzivnim ponudama."
+    },
+    {
+      "type": "header",
+      "content": "Bottom bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "Show social icons",
+      "default": true,
+      "info": "Configure social links in theme settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment",
+      "label": "Show payment icons",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Additional copyright text",
+      "default": "Sva prava zadržana."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Quick links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "default": "footer"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "About us"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Share your brand story with customers.</p>"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Kontakt"
+        },
+        {
+          "type": "text",
+          "id": "address",
+          "label": "Address",
+          "default": "Beograd, Srbija"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone",
+          "default": "+381 11 123 4567"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email",
+          "default": "info@milutin.rs"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "menu",
+        "settings": {
+          "heading": "Kupovina",
+          "menu": "footer"
+        }
+      },
+      {
+        "type": "menu",
+        "settings": {
+          "heading": "Pomoć",
+          "menu": "footer"
+        }
+      },
+      {
+        "type": "contact",
+        "settings": {
+          "heading": "Kontakt",
+          "address": "Beograd, Srbija",
+          "phone": "+381 11 123 4567",
+          "email": "info@milutin.rs"
+        }
+      }
+    ]
+  }
 }
 {% endschema %}
