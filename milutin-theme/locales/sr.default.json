@@ -74,15 +74,17 @@
   "customer": {
     "account": {
       "title": "Moj nalog",
+      "greeting": "Zdravo, {{ name }}",
       "orders": "Porudžbine",
-      "addresses": "Adrese",
+      "default_address": "Podrazumevana adresa",
+      "view_addresses": "Pogledaj sve",
       "logout": "Odjava"
     },
     "login": {
       "title": "Prijava",
       "email": "Email adresa",
       "password": "Lozinka",
-      "submit": "Prijavi se",
+      "sign_in": "Prijavi se",
       "forgot_password": "Zaboravili ste lozinku?",
       "create_account": "Napravite nalog"
     },
@@ -92,22 +94,76 @@
       "last_name": "Prezime",
       "email": "Email adresa",
       "password": "Lozinka",
-      "submit": "Registruj se"
+      "submit": "Registruj se",
+      "have_account": "Već imate nalog? Prijavite se"
     },
     "orders": {
       "title": "Istorija porudžbina",
-      "order_number": "Broj porudžbine",
+      "order_number": "Porudžbina",
       "date": "Datum",
       "status": "Status",
       "total": "Ukupno",
-      "no_orders": "Još uvek nemate porudžbina"
+      "none": "Još uvek nemate porudžbina"
+    },
+    "order": {
+      "title": "Porudžbina {{ name }}",
+      "date": "Datum",
+      "billing_address": "Adresa za naplatu",
+      "shipping_address": "Adresa za dostavu",
+      "payment_status": "Status plaćanja",
+      "fulfillment_status": "Status isporuke",
+      "subtotal": "Međuzbir",
+      "discount": "Popust",
+      "shipping": "Dostava",
+      "tax": "Porez",
+      "total": "Ukupno",
+      "back_to_account": "Nazad na nalog"
     },
     "addresses": {
       "title": "Adrese",
       "add_new": "Dodaj novu adresu",
+      "edit_address": "Izmeni adresu",
       "edit": "Izmeni",
       "delete": "Obriši",
-      "default": "Podrazumevana"
+      "delete_confirm": "Da li ste sigurni da želite da obrišete ovu adresu?",
+      "default": "Podrazumevana",
+      "set_default": "Postavi kao podrazumevanu",
+      "add": "Dodaj adresu",
+      "update": "Sačuvaj izmene",
+      "first_name": "Ime",
+      "last_name": "Prezime",
+      "company": "Kompanija",
+      "address1": "Adresa",
+      "address2": "Stan, sprat, itd.",
+      "city": "Grad",
+      "country": "Država",
+      "province": "Regija",
+      "zip": "Poštanski broj",
+      "phone": "Telefon",
+      "none": "Nemate sačuvanih adresa",
+      "back_to_account": "Nazad na nalog"
+    },
+    "recover_password": {
+      "title": "Resetuj lozinku",
+      "subtext": "Poslaćemo vam email za resetovanje lozinke",
+      "email": "Email adresa",
+      "submit": "Pošalji",
+      "success": "Poslali smo vam email sa uputstvima za resetovanje lozinke.",
+      "back_to_login": "Nazad na prijavu"
+    },
+    "reset_password": {
+      "title": "Resetuj lozinku",
+      "password": "Nova lozinka",
+      "password_confirm": "Potvrdi lozinku",
+      "submit": "Resetuj lozinku"
+    },
+    "activate_account": {
+      "title": "Aktivirajte nalog",
+      "subtext": "Kreirajte lozinku da biste aktivirali svoj nalog.",
+      "password": "Lozinka",
+      "password_confirm": "Potvrdi lozinku",
+      "submit": "Aktiviraj nalog",
+      "decline": "Odbij pozivnicu"
     }
   },
   "footer": {

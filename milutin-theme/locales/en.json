@@ -74,40 +74,96 @@
   "customer": {
     "account": {
       "title": "My Account",
+      "greeting": "Hello, {{ name }}",
       "orders": "Orders",
-      "addresses": "Addresses",
+      "default_address": "Default address",
+      "view_addresses": "View all",
       "logout": "Log out"
     },
     "login": {
       "title": "Login",
       "email": "Email address",
       "password": "Password",
-      "submit": "Sign in",
+      "sign_in": "Sign in",
       "forgot_password": "Forgot password?",
       "create_account": "Create account"
     },
     "register": {
-      "title": "Register",
+      "title": "Create Account",
       "first_name": "First name",
       "last_name": "Last name",
       "email": "Email address",
       "password": "Password",
-      "submit": "Register"
+      "submit": "Create account",
+      "have_account": "Already have an account? Sign in"
     },
     "orders": {
       "title": "Order history",
-      "order_number": "Order number",
+      "order_number": "Order",
       "date": "Date",
       "status": "Status",
       "total": "Total",
-      "no_orders": "You haven't placed any orders yet"
+      "none": "You haven't placed any orders yet"
+    },
+    "order": {
+      "title": "Order {{ name }}",
+      "date": "Date",
+      "billing_address": "Billing address",
+      "shipping_address": "Shipping address",
+      "payment_status": "Payment status",
+      "fulfillment_status": "Fulfillment status",
+      "subtotal": "Subtotal",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "total": "Total",
+      "back_to_account": "Back to account"
     },
     "addresses": {
       "title": "Addresses",
       "add_new": "Add new address",
+      "edit_address": "Edit address",
       "edit": "Edit",
       "delete": "Delete",
-      "default": "Default"
+      "delete_confirm": "Are you sure you want to delete this address?",
+      "default": "Default",
+      "set_default": "Set as default",
+      "add": "Add address",
+      "update": "Save changes",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "company": "Company",
+      "address1": "Address",
+      "address2": "Apartment, suite, etc.",
+      "city": "City",
+      "country": "Country",
+      "province": "Region",
+      "zip": "Postal code",
+      "phone": "Phone",
+      "none": "You have no saved addresses",
+      "back_to_account": "Back to account"
+    },
+    "recover_password": {
+      "title": "Reset Password",
+      "subtext": "We'll send you an email to reset your password",
+      "email": "Email address",
+      "submit": "Submit",
+      "success": "We've sent you an email with instructions to reset your password.",
+      "back_to_login": "Back to login"
+    },
+    "reset_password": {
+      "title": "Reset Password",
+      "password": "New password",
+      "password_confirm": "Confirm password",
+      "submit": "Reset password"
+    },
+    "activate_account": {
+      "title": "Activate Account",
+      "subtext": "Create a password to activate your account.",
+      "password": "Password",
+      "password_confirm": "Confirm password",
+      "submit": "Activate account",
+      "decline": "Decline invitation"
     }
   },
   "footer": {

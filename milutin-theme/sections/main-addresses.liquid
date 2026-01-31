@@ -1,0 +1,183 @@
+<section class="customer-section">
+  <div class="customer-section__container customer-section__container--wide">
+    <h1 class="customer-section__title">{{ 'customer.addresses.title' | t }}</h1>
+
+    <div class="addresses-grid">
+      {%- for address in customer.addresses -%}
+        <div class="address-card {% if address == customer.default_address %}address-card--default{% endif %}">
+          {%- if address == customer.default_address -%}
+            <span class="address-card__badge">{{ 'customer.addresses.default' | t }}</span>
+          {%- endif -%}
+
+          <div class="address-card__content">
+            {{ address | format_address }}
+          </div>
+
+          <div class="address-card__actions">
+            <button
+              type="button"
+              class="address-card__action"
+              data-address-edit
+              data-address-id="{{ address.id }}"
+            >
+              {{ 'customer.addresses.edit' | t }}
+            </button>
+            <button
+              type="button"
+              class="address-card__action address-card__action--delete"
+              data-address-delete
+              data-address-id="{{ address.id }}"
+              data-confirm="{{ 'customer.addresses.delete_confirm' | t }}"
+            >
+              {{ 'customer.addresses.delete' | t }}
+            </button>
+          </div>
+
+          {%- comment -%} Hidden delete form {%- endcomment -%}
+          {%- form 'customer_address', address, class: 'address-delete-form', id: 'delete-address-' | append: address.id -%}
+            <input type="hidden" name="_method" value="delete">
+          {%- endform -%}
+        </div>
+      {%- endfor -%}
+
+      {%- comment -%} Add New Address Card {%- endcomment -%}
+      <button type="button" class="address-card address-card--add" data-address-add>
+        <svg class="address-card__add-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="address-card__add-text">{{ 'customer.addresses.add_new' | t }}</span>
+      </button>
+    </div>
+
+    <div style="margin-top: var(--spacing-8);">
+      <a href="{{ routes.account_url }}" class="btn btn--secondary">
+        {{ 'customer.addresses.back_to_account' | t }}
+      </a>
+    </div>
+  </div>
+
+  {%- comment -%} Address Form Modal {%- endcomment -%}
+  <div class="address-modal" id="AddressModal" aria-hidden="true" role="dialog">
+    <div class="address-modal__overlay" data-address-modal-close></div>
+    <div class="address-modal__content">
+      <div class="address-modal__header">
+        <h2 class="address-modal__title" data-modal-title>{{ 'customer.addresses.add_new' | t }}</h2>
+        <button type="button" class="address-modal__close" data-address-modal-close aria-label="{{ 'general.close' | t }}">
+          {% render 'icon-close' %}
+        </button>
+      </div>
+
+      {%- comment -%} New Address Form {%- endcomment -%}
+      <div id="AddressFormNew" data-address-form-new>
+        {%- form 'customer_address', customer.new_address, class: 'customer-form' -%}
+          {% render 'address-form-fields', form: form %}
+          <button type="submit" class="btn btn--primary btn--full customer-form__submit">
+            {{ 'customer.addresses.add' | t }}
+          </button>
+        {%- endform -%}
+      </div>
+
+      {%- comment -%} Edit Address Forms {%- endcomment -%}
+      {%- for address in customer.addresses -%}
+        <div id="AddressForm{{ address.id }}" data-address-form-edit style="display: none;">
+          {%- form 'customer_address', address, class: 'customer-form' -%}
+            {% render 'address-form-fields', form: form, address: address %}
+
+            {%- unless address == customer.default_address -%}
+              <div class="customer-form__checkbox-wrapper">
+                <input
+                  type="checkbox"
+                  id="SetDefault{{ address.id }}"
+                  name="address[default]"
+                  value="1"
+                  class="customer-form__checkbox"
+                >
+                <label for="SetDefault{{ address.id }}" class="customer-form__checkbox-label">
+                  {{ 'customer.addresses.set_default' | t }}
+                </label>
+              </div>
+            {%- endunless -%}
+
+            <button type="submit" class="btn btn--primary btn--full customer-form__submit">
+              {{ 'customer.addresses.update' | t }}
+            </button>
+          {%- endform -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    const modal = document.getElementById('AddressModal');
+    const modalTitle = modal.querySelector('[data-modal-title]');
+    const newForm = document.getElementById('AddressFormNew');
+    const editForms = modal.querySelectorAll('[data-address-form-edit]');
+
+    function openModal() {
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function showNewForm() {
+      modalTitle.textContent = '{{ 'customer.addresses.add_new' | t }}';
+      newForm.style.display = 'block';
+      editForms.forEach(f => f.style.display = 'none');
+      openModal();
+    }
+
+    function showEditForm(addressId) {
+      modalTitle.textContent = '{{ 'customer.addresses.edit_address' | t }}';
+      newForm.style.display = 'none';
+      editForms.forEach(f => f.style.display = 'none');
+      const editForm = document.getElementById('AddressForm' + addressId);
+      if (editForm) editForm.style.display = 'block';
+      openModal();
+    }
+
+    // Add new address
+    document.querySelectorAll('[data-address-add]').forEach(btn => {
+      btn.addEventListener('click', showNewForm);
+    });
+
+    // Edit address
+    document.querySelectorAll('[data-address-edit]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        showEditForm(btn.dataset.addressId);
+      });
+    });
+
+    // Delete address
+    document.querySelectorAll('[data-address-delete]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (confirm(btn.dataset.confirm)) {
+          document.getElementById('delete-address-' + btn.dataset.addressId).submit();
+        }
+      });
+    });
+
+    // Close modal
+    document.querySelectorAll('[data-address-modal-close]').forEach(el => {
+      el.addEventListener('click', closeModal);
+    });
+
+    // Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Addresses",
+  "tag": "section",
+  "class": "section-main-addresses"
+}
+{% endschema %}

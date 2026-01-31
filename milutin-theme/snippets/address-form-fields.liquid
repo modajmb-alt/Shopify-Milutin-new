@@ -1,0 +1,189 @@
+{%- comment -%}
+  Address Form Fields
+  Reusable address form fields for customer addresses
+
+  Usage: {% render 'address-form-fields', form: form, address: address %}
+{%- endcomment -%}
+
+<div class="address-form__row address-form__row--half">
+  <div class="customer-form__field">
+    <label for="{{ form.id }}_first_name" class="customer-form__label">
+      {{ 'customer.addresses.first_name' | t }}
+    </label>
+    <input
+      type="text"
+      id="{{ form.id }}_first_name"
+      name="address[first_name]"
+      value="{{ form.first_name }}"
+      autocomplete="given-name"
+      class="customer-form__input"
+    >
+  </div>
+
+  <div class="customer-form__field">
+    <label for="{{ form.id }}_last_name" class="customer-form__label">
+      {{ 'customer.addresses.last_name' | t }}
+    </label>
+    <input
+      type="text"
+      id="{{ form.id }}_last_name"
+      name="address[last_name]"
+      value="{{ form.last_name }}"
+      autocomplete="family-name"
+      class="customer-form__input"
+    >
+  </div>
+</div>
+
+<div class="customer-form__field">
+  <label for="{{ form.id }}_company" class="customer-form__label">
+    {{ 'customer.addresses.company' | t }}
+  </label>
+  <input
+    type="text"
+    id="{{ form.id }}_company"
+    name="address[company]"
+    value="{{ form.company }}"
+    autocomplete="organization"
+    class="customer-form__input"
+  >
+</div>
+
+<div class="customer-form__field">
+  <label for="{{ form.id }}_address1" class="customer-form__label">
+    {{ 'customer.addresses.address1' | t }}
+  </label>
+  <input
+    type="text"
+    id="{{ form.id }}_address1"
+    name="address[address1]"
+    value="{{ form.address1 }}"
+    autocomplete="address-line1"
+    class="customer-form__input"
+    required
+  >
+</div>
+
+<div class="customer-form__field">
+  <label for="{{ form.id }}_address2" class="customer-form__label">
+    {{ 'customer.addresses.address2' | t }}
+  </label>
+  <input
+    type="text"
+    id="{{ form.id }}_address2"
+    name="address[address2]"
+    value="{{ form.address2 }}"
+    autocomplete="address-line2"
+    class="customer-form__input"
+  >
+</div>
+
+<div class="address-form__row address-form__row--half">
+  <div class="customer-form__field">
+    <label for="{{ form.id }}_city" class="customer-form__label">
+      {{ 'customer.addresses.city' | t }}
+    </label>
+    <input
+      type="text"
+      id="{{ form.id }}_city"
+      name="address[city]"
+      value="{{ form.city }}"
+      autocomplete="address-level2"
+      class="customer-form__input"
+      required
+    >
+  </div>
+
+  <div class="customer-form__field">
+    <label for="{{ form.id }}_zip" class="customer-form__label">
+      {{ 'customer.addresses.zip' | t }}
+    </label>
+    <input
+      type="text"
+      id="{{ form.id }}_zip"
+      name="address[zip]"
+      value="{{ form.zip }}"
+      autocomplete="postal-code"
+      class="customer-form__input"
+    >
+  </div>
+</div>
+
+<div class="customer-form__field">
+  <label for="{{ form.id }}_country" class="customer-form__label">
+    {{ 'customer.addresses.country' | t }}
+  </label>
+  <select
+    id="{{ form.id }}_country"
+    name="address[country]"
+    autocomplete="country"
+    class="customer-form__input"
+    data-address-country
+    data-form-id="{{ form.id }}"
+  >
+    {{ all_country_option_tags }}
+  </select>
+</div>
+
+<div class="customer-form__field" id="{{ form.id }}_province_container" style="display: none;">
+  <label for="{{ form.id }}_province" class="customer-form__label">
+    {{ 'customer.addresses.province' | t }}
+  </label>
+  <select
+    id="{{ form.id }}_province"
+    name="address[province]"
+    autocomplete="address-level1"
+    class="customer-form__input"
+    data-address-province
+  >
+  </select>
+</div>
+
+<div class="customer-form__field">
+  <label for="{{ form.id }}_phone" class="customer-form__label">
+    {{ 'customer.addresses.phone' | t }}
+  </label>
+  <input
+    type="tel"
+    id="{{ form.id }}_phone"
+    name="address[phone]"
+    value="{{ form.phone }}"
+    autocomplete="tel"
+    class="customer-form__input"
+  >
+</div>
+
+<script>
+  (function() {
+    const countrySelect = document.getElementById('{{ form.id }}_country');
+    const provinceContainer = document.getElementById('{{ form.id }}_province_container');
+    const provinceSelect = document.getElementById('{{ form.id }}_province');
+
+    if (!countrySelect) return;
+
+    // Set initial country
+    {%- if form.country -%}
+      countrySelect.value = '{{ form.country }}';
+    {%- endif -%}
+
+    function updateProvinces() {
+      const option = countrySelect.options[countrySelect.selectedIndex];
+      const provinces = option.dataset.provinces ? JSON.parse(option.dataset.provinces) : [];
+
+      if (provinces.length > 0) {
+        provinceContainer.style.display = 'block';
+        provinceSelect.innerHTML = provinces.map(p => `<option value="${p[0]}">${p[1]}</option>`).join('');
+
+        {%- if form.province -%}
+          provinceSelect.value = '{{ form.province }}';
+        {%- endif -%}
+      } else {
+        provinceContainer.style.display = 'none';
+        provinceSelect.innerHTML = '';
+      }
+    }
+
+    countrySelect.addEventListener('change', updateProvinces);
+    updateProvinces();
+  })();
+</script>

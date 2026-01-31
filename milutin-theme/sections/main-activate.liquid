@@ -1,0 +1,64 @@
+<section class="customer-section">
+  <div class="customer-section__container">
+    <h1 class="customer-section__title">{{ 'customer.activate_account.title' | t }}</h1>
+    <p class="customer-section__subtitle">{{ 'customer.activate_account.subtext' | t }}</p>
+
+    {%- form 'activate_customer_password', class: 'customer-form' -%}
+      {%- if form.errors -%}
+        <div class="customer-form__errors">
+          <ul>
+            {%- for field in form.errors -%}
+              <li>{{ form.errors.messages[field] }}</li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      <div class="customer-form__field">
+        <label for="ActivatePassword" class="customer-form__label">
+          {{ 'customer.activate_account.password' | t }}
+        </label>
+        <input
+          type="password"
+          id="ActivatePassword"
+          name="customer[password]"
+          autocomplete="new-password"
+          class="customer-form__input"
+          required
+        >
+      </div>
+
+      <div class="customer-form__field">
+        <label for="ActivatePasswordConfirm" class="customer-form__label">
+          {{ 'customer.activate_account.password_confirm' | t }}
+        </label>
+        <input
+          type="password"
+          id="ActivatePasswordConfirm"
+          name="customer[password_confirmation]"
+          autocomplete="new-password"
+          class="customer-form__input"
+          required
+        >
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--full customer-form__submit">
+        {{ 'customer.activate_account.submit' | t }}
+      </button>
+
+      <div class="customer-form__footer">
+        <button type="submit" name="decline" class="customer-form__link">
+          {{ 'customer.activate_account.decline' | t }}
+        </button>
+      </div>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Activate Account",
+  "tag": "section",
+  "class": "section-main-activate"
+}
+{% endschema %}

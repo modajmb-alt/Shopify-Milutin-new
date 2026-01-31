@@ -1,0 +1,103 @@
+<section class="customer-section">
+  <div class="customer-section__container customer-section__container--wide">
+    <h1 class="customer-section__title">{{ 'customer.account.title' | t }}</h1>
+
+    <div class="account-header">
+      <p class="account-header__greeting">
+        {{ 'customer.account.greeting' | t: name: customer.first_name | default: customer.email }}
+      </p>
+      <a href="{{ routes.account_logout_url }}" class="account-header__logout">
+        {{ 'customer.account.logout' | t }}
+      </a>
+    </div>
+
+    <div class="account-grid">
+      {%- comment -%} Order History {%- endcomment -%}
+      <div class="account-block">
+        <div class="account-block__header">
+          <h2 class="account-block__title">{{ 'customer.account.orders' | t }}</h2>
+        </div>
+
+        {%- if customer.orders.size > 0 -%}
+          {%- comment -%} Mobile: Cards {%- endcomment -%}
+          <div class="orders-list">
+            {%- for order in customer.orders limit: 5 -%}
+              <div class="order-card">
+                <div class="order-card__header">
+                  <a href="{{ order.customer_url }}" class="order-card__number orders-table__link">
+                    {{ order.name }}
+                  </a>
+                  <span class="orders-table__status {% if order.fulfillment_status == 'fulfilled' %}orders-table__status--fulfilled{% else %}orders-table__status--pending{% endif %}">
+                    {{ order.fulfillment_status_label }}
+                  </span>
+                </div>
+                <div class="order-card__details">
+                  <span>{{ order.created_at | date: "%d.%m.%Y" }}</span>
+                  <span>{{ order.total_price | money }}</span>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+
+          {%- comment -%} Desktop: Table {%- endcomment -%}
+          <div class="orders-table-wrapper">
+            <table class="orders-table">
+              <thead>
+                <tr>
+                  <th>{{ 'customer.orders.order_number' | t }}</th>
+                  <th>{{ 'customer.orders.date' | t }}</th>
+                  <th>{{ 'customer.orders.status' | t }}</th>
+                  <th>{{ 'customer.orders.total' | t }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%- for order in customer.orders limit: 5 -%}
+                  <tr>
+                    <td>
+                      <a href="{{ order.customer_url }}" class="orders-table__link">{{ order.name }}</a>
+                    </td>
+                    <td>{{ order.created_at | date: "%d.%m.%Y" }}</td>
+                    <td>
+                      <span class="orders-table__status {% if order.fulfillment_status == 'fulfilled' %}orders-table__status--fulfilled{% else %}orders-table__status--pending{% endif %}">
+                        {{ order.fulfillment_status_label }}
+                      </span>
+                    </td>
+                    <td>{{ order.total_price | money }}</td>
+                  </tr>
+                {%- endfor -%}
+              </tbody>
+            </table>
+          </div>
+        {%- else -%}
+          <p class="account-block__empty">{{ 'customer.orders.none' | t }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Default Address {%- endcomment -%}
+      <div class="account-block">
+        <div class="account-block__header">
+          <h2 class="account-block__title">{{ 'customer.account.default_address' | t }}</h2>
+          <a href="{{ routes.account_addresses_url }}" class="account-block__link">
+            {{ 'customer.account.view_addresses' | t }}
+          </a>
+        </div>
+
+        {%- if customer.default_address -%}
+          <div class="account-block__content">
+            {{ customer.default_address | format_address }}
+          </div>
+        {%- else -%}
+          <p class="account-block__empty">{{ 'customer.addresses.none' | t }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Account",
+  "tag": "section",
+  "class": "section-main-account"
+}
+{% endschema %}
