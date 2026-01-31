@@ -141,6 +141,36 @@
       "other": "{{ count }} rezultata"
     }
   },
+  "collections": {
+    "filter": "Filter",
+    "sort_by": "Sortiraj",
+    "product_count": {
+      "one": "{{ count }} proizvod",
+      "few": "{{ count }} proizvoda",
+      "other": "{{ count }} proizvoda"
+    },
+    "empty": "Nema proizvoda u ovoj kolekciji",
+    "empty_filtered": "Nema proizvoda koji odgovaraju vašim filterima",
+    "clear_filters": "Obriši filtere",
+    "clear_all": "Obriši sve",
+    "apply_filters": "Primeni",
+    "from": "Od",
+    "to": "Do",
+    "sort": {
+      "title": "Redosled",
+      "best_selling": "Najprodavanije",
+      "title_ascending": "A-Š",
+      "title_descending": "Š-A",
+      "price_ascending": "Cena: Niža prvo",
+      "price_descending": "Cena: Viša prvo",
+      "created_ascending": "Najstarije",
+      "created_descending": "Najnovije"
+    },
+    "pagination": "Stranicenje",
+    "previous": "Prethodna",
+    "next": "Sledeća",
+    "page": "Stranica {{ current }} od {{ total }}"
+  },
   "accessibility": {
     "skip_to_content": "Preskoči na sadržaj",
     "close_menu": "Zatvori meni",

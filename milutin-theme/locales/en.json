@@ -141,6 +141,35 @@
       "other": "{{ count }} results"
     }
   },
+  "collections": {
+    "filter": "Filter",
+    "sort_by": "Sort by",
+    "product_count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    },
+    "empty": "No products in this collection",
+    "empty_filtered": "No products match your filters",
+    "clear_filters": "Clear filters",
+    "clear_all": "Clear all",
+    "apply_filters": "Apply",
+    "from": "From",
+    "to": "To",
+    "sort": {
+      "title": "Sort",
+      "best_selling": "Best selling",
+      "title_ascending": "A-Z",
+      "title_descending": "Z-A",
+      "price_ascending": "Price: Low to high",
+      "price_descending": "Price: High to low",
+      "created_ascending": "Oldest",
+      "created_descending": "Newest"
+    },
+    "pagination": "Pagination",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {{ current }} of {{ total }}"
+  },
   "accessibility": {
     "skip_to_content": "Skip to content",
     "close_menu": "Close menu",

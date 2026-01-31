@@ -1,0 +1,126 @@
+{%- comment -%}
+  Collection Filters Drawer
+  Slide-in filter panel for mobile and desktop
+
+  Parameters:
+  - collection: Collection object
+{%- endcomment -%}
+
+<div
+  class="filters-drawer"
+  id="CollectionFilters"
+  data-filters-drawer
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+  aria-label="{{ 'collections.filter' | t }}"
+>
+  <div class="filters-drawer__overlay" data-filters-overlay></div>
+
+  <div class="filters-drawer__panel">
+    <div class="filters-drawer__header">
+      <h2 class="filters-drawer__title">{{ 'collections.filter' | t }}</h2>
+      <button
+        type="button"
+        class="filters-drawer__close icon-btn"
+        aria-label="{{ 'general.close' | t }}"
+        data-filters-close
+      >
+        {% render 'icon-close' %}
+      </button>
+    </div>
+
+    <form class="filters-drawer__form" data-filters-form>
+      <div class="filters-drawer__content">
+        {%- for filter in collection.filters -%}
+          <details class="filters-drawer__group" open>
+            <summary class="filters-drawer__group-header">
+              <span class="filters-drawer__group-title">{{ filter.label }}</span>
+              {% render 'icon-chevron' %}
+            </summary>
+
+            <div class="filters-drawer__group-content">
+              {%- case filter.type -%}
+                {%- when 'list' -%}
+                  <ul class="filters-drawer__list" role="list">
+                    {%- for value in filter.values -%}
+                      <li class="filters-drawer__item">
+                        <label class="filters-drawer__label">
+                          <input
+                            type="checkbox"
+                            name="{{ value.param_name }}"
+                            value="{{ value.value }}"
+                            {% if value.active %}checked{% endif %}
+                            {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                            class="filters-drawer__checkbox"
+                          >
+                          <span class="filters-drawer__checkbox-custom"></span>
+                          <span class="filters-drawer__text">
+                            {{ value.label }}
+                            <span class="filters-drawer__count">({{ value.count }})</span>
+                          </span>
+                        </label>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+
+                {%- when 'price_range' -%}
+                  <div class="filters-drawer__price-range">
+                    <div class="filters-drawer__price-inputs">
+                      <div class="filters-drawer__price-field">
+                        <label for="Filter-{{ filter.param_name }}-GTE">{{ 'collections.from' | t }}</label>
+                        <input
+                          type="number"
+                          id="Filter-{{ filter.param_name }}-GTE"
+                          name="{{ filter.min_value.param_name }}"
+                          value="{{ filter.min_value.value | money_without_currency | remove: '.' | remove: ',' }}"
+                          min="0"
+                          max="{{ filter.range_max | money_without_currency | remove: '.' | remove: ',' }}"
+                          placeholder="{{ filter.range_min | money_without_currency }}"
+                          class="filters-drawer__price-input"
+                        >
+                      </div>
+                      <span class="filters-drawer__price-separator">-</span>
+                      <div class="filters-drawer__price-field">
+                        <label for="Filter-{{ filter.param_name }}-LTE">{{ 'collections.to' | t }}</label>
+                        <input
+                          type="number"
+                          id="Filter-{{ filter.param_name }}-LTE"
+                          name="{{ filter.max_value.param_name }}"
+                          value="{{ filter.max_value.value | money_without_currency | remove: '.' | remove: ',' }}"
+                          min="0"
+                          max="{{ filter.range_max | money_without_currency | remove: '.' | remove: ',' }}"
+                          placeholder="{{ filter.range_max | money_without_currency }}"
+                          class="filters-drawer__price-input"
+                        >
+                      </div>
+                    </div>
+                  </div>
+              {%- endcase -%}
+            </div>
+          </details>
+        {%- endfor -%}
+      </div>
+
+      <div class="filters-drawer__footer">
+        {%- assign has_active_filters = false -%}
+        {%- for filter in collection.filters -%}
+          {%- if filter.active_values.size > 0 or filter.min_value.value != nil or filter.max_value.value != nil -%}
+            {%- assign has_active_filters = true -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if has_active_filters -%}
+          <a href="{{ collection.url }}" class="filters-drawer__clear">
+            {{ 'collections.clear_all' | t }}
+          </a>
+        {%- endif -%}
+
+        <button type="submit" class="filters-drawer__apply btn btn--primary">
+          {{ 'collections.apply_filters' | t }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

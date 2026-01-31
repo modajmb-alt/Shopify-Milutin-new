@@ -1,0 +1,99 @@
+{%- comment -%}
+  Collection Filters Sidebar
+  Static sidebar filter panel
+
+  Parameters:
+  - collection: Collection object
+{%- endcomment -%}
+
+<form class="filters-sidebar" data-filters-form>
+  {%- for filter in collection.filters -%}
+    <details class="filters-sidebar__group" open>
+      <summary class="filters-sidebar__group-header">
+        <span class="filters-sidebar__group-title">{{ filter.label }}</span>
+        {% render 'icon-chevron' %}
+      </summary>
+
+      <div class="filters-sidebar__group-content">
+        {%- case filter.type -%}
+          {%- when 'list' -%}
+            <ul class="filters-sidebar__list" role="list">
+              {%- for value in filter.values -%}
+                <li class="filters-sidebar__item">
+                  <label class="filters-sidebar__label">
+                    <input
+                      type="checkbox"
+                      name="{{ value.param_name }}"
+                      value="{{ value.value }}"
+                      {% if value.active %}checked{% endif %}
+                      {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                      class="filters-sidebar__checkbox"
+                      data-filter-checkbox
+                    >
+                    <span class="filters-sidebar__checkbox-custom"></span>
+                    <span class="filters-sidebar__text">
+                      {{ value.label }}
+                      <span class="filters-sidebar__count">({{ value.count }})</span>
+                    </span>
+                  </label>
+                </li>
+              {%- endfor -%}
+            </ul>
+
+          {%- when 'price_range' -%}
+            <div class="filters-sidebar__price-range">
+              <div class="filters-sidebar__price-inputs">
+                <div class="filters-sidebar__price-field">
+                  <label for="Filter-{{ filter.param_name }}-GTE">{{ 'collections.from' | t }}</label>
+                  <input
+                    type="number"
+                    id="Filter-{{ filter.param_name }}-GTE"
+                    name="{{ filter.min_value.param_name }}"
+                    value="{{ filter.min_value.value | money_without_currency | remove: '.' | remove: ',' }}"
+                    min="0"
+                    placeholder="{{ filter.range_min | money_without_currency }}"
+                    class="filters-sidebar__price-input"
+                    data-filter-price
+                  >
+                </div>
+                <span class="filters-sidebar__price-separator">-</span>
+                <div class="filters-sidebar__price-field">
+                  <label for="Filter-{{ filter.param_name }}-LTE">{{ 'collections.to' | t }}</label>
+                  <input
+                    type="number"
+                    id="Filter-{{ filter.param_name }}-LTE"
+                    name="{{ filter.max_value.param_name }}"
+                    value="{{ filter.max_value.value | money_without_currency | remove: '.' | remove: ',' }}"
+                    min="0"
+                    placeholder="{{ filter.range_max | money_without_currency }}"
+                    class="filters-sidebar__price-input"
+                    data-filter-price
+                  >
+                </div>
+              </div>
+            </div>
+        {%- endcase -%}
+      </div>
+    </details>
+  {%- endfor -%}
+
+  {%- assign has_active_filters = false -%}
+  {%- for filter in collection.filters -%}
+    {%- if filter.active_values.size > 0 or filter.min_value.value != nil or filter.max_value.value != nil -%}
+      {%- assign has_active_filters = true -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if has_active_filters -%}
+    <div class="filters-sidebar__actions">
+      <a href="{{ collection.url }}" class="filters-sidebar__clear">
+        {{ 'collections.clear_all' | t }}
+      </a>
+    </div>
+  {%- endif -%}
+
+  <noscript>
+    <button type="submit" class="btn btn--primary">{{ 'collections.apply_filters' | t }}</button>
+  </noscript>
+</form>

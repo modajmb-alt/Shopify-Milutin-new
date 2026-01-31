@@ -1,0 +1,69 @@
+{%- liquid
+  assign show_image = section.settings.show_collection_image
+  assign show_description = section.settings.show_collection_description
+  assign image = collection.image
+  assign overlay_opacity = section.settings.overlay_opacity
+-%}
+
+{%- if show_image and image != blank -%}
+  <section class="collection-banner" data-section-id="{{ section.id }}">
+    <div class="collection-banner__media">
+      {{ image | image_url: width: 2000 | image_tag:
+        class: 'collection-banner__image',
+        loading: 'eager',
+        fetchpriority: 'high',
+        widths: '800, 1200, 1600, 2000'
+      }}
+      <div class="collection-banner__overlay" style="--overlay-opacity: {{ overlay_opacity | divided_by: 100.0 }}"></div>
+    </div>
+    <div class="collection-banner__content">
+      <div class="container">
+        <h1 class="collection-banner__title">{{ collection.title }}</h1>
+        {%- if show_description and collection.description != blank -%}
+          <div class="collection-banner__description">{{ collection.description }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+{%- else -%}
+  <section class="collection-header">
+    <div class="container">
+      <h1 class="collection-header__title">{{ collection.title }}</h1>
+      {%- if show_description and collection.description != blank -%}
+        <div class="collection-header__description">{{ collection.description }}</div>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Collection banner",
+  "tag": "section",
+  "class": "section-collection-banner",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "label": "Show collection image",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "label": "Show collection description",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 70,
+      "step": 5,
+      "default": 30,
+      "unit": "%",
+      "label": "Image overlay opacity"
+    }
+  ]
+}
+{% endschema %}
