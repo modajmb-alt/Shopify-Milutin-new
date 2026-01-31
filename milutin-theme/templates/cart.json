@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-cart",
+      "settings": {
+        "show_vendor": false,
+        "enable_note": true,
+        "enable_gift_wrap": false
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

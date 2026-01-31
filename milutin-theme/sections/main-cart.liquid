@@ -1,0 +1,216 @@
+<section class="cart-page" data-section-id="{{ section.id }}">
+  <div class="container">
+    <h1 class="cart-page__title">{{ 'cart.title' | t }}</h1>
+
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" class="cart-page__form" data-cart-form>
+        <div class="cart-page__content">
+          <div class="cart-page__items">
+            <div class="cart-page__header">
+              <span class="cart-page__header-product">{{ 'cart.product' | t }}</span>
+              <span class="cart-page__header-quantity">{{ 'cart.quantity' | t }}</span>
+              <span class="cart-page__header-total">{{ 'cart.total' | t }}</span>
+            </div>
+
+            {%- for item in cart.items -%}
+              <div class="cart-item" data-cart-item data-line-index="{{ forloop.index }}">
+                <div class="cart-item__media">
+                  <a href="{{ item.url }}" class="cart-item__link" tabindex="-1" aria-hidden="true">
+                    {%- if item.image -%}
+                      {{ item.image | image_url: width: 200 | image_tag:
+                        loading: 'lazy',
+                        widths: '100, 150, 200',
+                        class: 'cart-item__image'
+                      }}
+                    {%- else -%}
+                      <div class="cart-item__placeholder">
+                        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                    {%- endif -%}
+                  </a>
+                </div>
+
+                <div class="cart-item__details">
+                  <div class="cart-item__info">
+                    {%- if section.settings.show_vendor and item.vendor -%}
+                      <p class="cart-item__vendor">{{ item.vendor }}</p>
+                    {%- endif -%}
+
+                    <a href="{{ item.url }}" class="cart-item__title">
+                      {{ item.product.title }}
+                    </a>
+
+                    {%- unless item.product.has_only_default_variant -%}
+                      <p class="cart-item__variant">{{ item.variant.title }}</p>
+                    {%- endunless -%}
+
+                    {%- if item.selling_plan_allocation -%}
+                      <p class="cart-item__selling-plan">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+                    {%- endif -%}
+
+                    <div class="cart-item__price-mobile">
+                      {%- if item.original_line_price != item.final_line_price -%}
+                        <span class="cart-item__price--sale">{{ item.final_line_price | money }}</span>
+                        <s class="cart-item__price--compare">{{ item.original_line_price | money }}</s>
+                      {%- else -%}
+                        <span class="cart-item__price">{{ item.final_line_price | money }}</span>
+                      {%- endif -%}
+                    </div>
+
+                    {%- for discount in item.line_level_discount_allocations -%}
+                      <p class="cart-item__discount">
+                        {% render 'icon-discount' %}
+                        {{ discount.discount_application.title }} (-{{ discount.amount | money }})
+                      </p>
+                    {%- endfor -%}
+                  </div>
+
+                  <div class="cart-item__quantity">
+                    <div class="cart-item__quantity-selector">
+                      <button
+                        type="button"
+                        class="cart-item__quantity-btn"
+                        data-quantity-minus
+                        aria-label="{{ 'accessibility.decrease_quantity' | t }}"
+                      >
+                        <span aria-hidden="true">−</span>
+                      </button>
+                      <input
+                        type="number"
+                        name="updates[]"
+                        value="{{ item.quantity }}"
+                        min="0"
+                        class="cart-item__quantity-input"
+                        data-quantity-input
+                        data-line-index="{{ forloop.index }}"
+                        aria-label="{{ 'cart.quantity' | t }}"
+                      >
+                      <button
+                        type="button"
+                        class="cart-item__quantity-btn"
+                        data-quantity-plus
+                        aria-label="{{ 'accessibility.increase_quantity' | t }}"
+                      >
+                        <span aria-hidden="true">+</span>
+                      </button>
+                    </div>
+
+                    <button
+                      type="button"
+                      class="cart-item__remove"
+                      data-remove-item
+                      data-line-index="{{ forloop.index }}"
+                      aria-label="{{ 'cart.remove' | t }}"
+                    >
+                      {{ 'cart.remove' | t }}
+                    </button>
+                  </div>
+
+                  <div class="cart-item__total">
+                    {%- if item.original_line_price != item.final_line_price -%}
+                      <span class="cart-item__price--sale">{{ item.final_line_price | money }}</span>
+                      <s class="cart-item__price--compare">{{ item.original_line_price | money }}</s>
+                    {%- else -%}
+                      <span class="cart-item__price">{{ item.final_line_price | money }}</span>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <div class="cart-page__sidebar">
+            {%- if section.settings.enable_note -%}
+              <div class="cart-page__note">
+                <label for="CartNote" class="cart-page__note-label">
+                  {{ 'cart.note' | t }}
+                </label>
+                <textarea
+                  id="CartNote"
+                  name="note"
+                  class="cart-page__note-input"
+                  placeholder="{{ 'cart.note_placeholder' | t }}"
+                >{{ cart.note }}</textarea>
+              </div>
+            {%- endif -%}
+
+            <div class="cart-page__summary">
+              {%- if cart.cart_level_discount_applications.size > 0 -%}
+                <div class="cart-page__discounts">
+                  {%- for discount in cart.cart_level_discount_applications -%}
+                    <div class="cart-page__discount">
+                      {% render 'icon-discount' %}
+                      <span>{{ discount.title }}</span>
+                      <span>-{{ discount.total_allocated_amount | money }}</span>
+                    </div>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+
+              <div class="cart-page__subtotal">
+                <span>{{ 'cart.subtotal' | t }}</span>
+                <span data-cart-subtotal>{{ cart.total_price | money }}</span>
+              </div>
+
+              <p class="cart-page__taxes-note">
+                {{ 'cart.shipping_note' | t }}
+              </p>
+
+              <div class="cart-page__buttons">
+                <button type="submit" name="checkout" class="btn btn--primary btn--full cart-page__checkout">
+                  {{ 'cart.checkout' | t }}
+                </button>
+
+                <noscript>
+                  <button type="submit" name="update" class="btn btn--secondary btn--full">
+                    {{ 'cart.update' | t }}
+                  </button>
+                </noscript>
+              </div>
+
+              <a href="{{ routes.all_products_collection_url }}" class="cart-page__continue">
+                {{ 'cart.continue_shopping' | t }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </form>
+    {%- else -%}
+      <div class="cart-page__empty">
+        <p>{{ 'cart.empty' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">
+          {{ 'cart.continue_shopping' | t }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "tag": "section",
+  "class": "section-main-cart",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_note",
+      "label": "Enable cart note",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gift_wrap",
+      "label": "Enable gift wrap option",
+      "default": false,
+      "info": "Requires a gift wrap product"
+    }
+  ]
+}
+{% endschema %}
