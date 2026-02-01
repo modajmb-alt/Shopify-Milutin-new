@@ -1,0 +1,349 @@
+{%- comment -%}
+  Size Guide Modal
+  Shows clothing size measurements
+
+  Usage: {% render 'size-guide-modal' %}
+{%- endcomment -%}
+
+<div class="size-guide-modal" id="SizeGuideModal" aria-hidden="true" role="dialog" aria-label="{{ 'products.size_guide' | t }}">
+  <div class="size-guide-modal__overlay" data-size-guide-close></div>
+
+  <div class="size-guide-modal__container">
+    <div class="size-guide-modal__header">
+      <h2 class="size-guide-modal__title">{{ 'products.size_guide' | t }}</h2>
+      <button type="button" class="size-guide-modal__close" data-size-guide-close aria-label="{{ 'general.close' | t }}">
+        {% render 'icon-close' %}
+      </button>
+    </div>
+
+    <div class="size-guide-modal__content">
+      <div class="size-guide-modal__tabs">
+        <button type="button" class="size-guide-modal__tab is-active" data-tab="women">{{ 'products.size_guide_women' | t }}</button>
+        <button type="button" class="size-guide-modal__tab" data-tab="men">{{ 'products.size_guide_men' | t }}</button>
+      </div>
+
+      <div class="size-guide-modal__panel is-active" data-panel="women">
+        <h3 class="size-guide-modal__subtitle">{{ 'products.size_guide_clothing' | t }}</h3>
+        <div class="size-guide-modal__table-wrapper">
+          <table class="size-guide-modal__table">
+            <thead>
+              <tr>
+                <th>{{ 'products.size_guide_size' | t }}</th>
+                <th>XS</th>
+                <th>S</th>
+                <th>M</th>
+                <th>L</th>
+                <th>XL</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>EU</td>
+                <td>32-34</td>
+                <td>36</td>
+                <td>38</td>
+                <td>40</td>
+                <td>42</td>
+              </tr>
+              <tr>
+                <td>{{ 'products.size_guide_bust' | t }} (cm)</td>
+                <td>78-82</td>
+                <td>82-86</td>
+                <td>86-90</td>
+                <td>90-94</td>
+                <td>94-98</td>
+              </tr>
+              <tr>
+                <td>{{ 'products.size_guide_waist' | t }} (cm)</td>
+                <td>58-62</td>
+                <td>62-66</td>
+                <td>66-70</td>
+                <td>70-74</td>
+                <td>74-78</td>
+              </tr>
+              <tr>
+                <td>{{ 'products.size_guide_hips' | t }} (cm)</td>
+                <td>84-88</td>
+                <td>88-92</td>
+                <td>92-96</td>
+                <td>96-100</td>
+                <td>100-104</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="size-guide-modal__panel" data-panel="men">
+        <h3 class="size-guide-modal__subtitle">{{ 'products.size_guide_clothing' | t }}</h3>
+        <div class="size-guide-modal__table-wrapper">
+          <table class="size-guide-modal__table">
+            <thead>
+              <tr>
+                <th>{{ 'products.size_guide_size' | t }}</th>
+                <th>S</th>
+                <th>M</th>
+                <th>L</th>
+                <th>XL</th>
+                <th>XXL</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>EU</td>
+                <td>44-46</td>
+                <td>48-50</td>
+                <td>52-54</td>
+                <td>56-58</td>
+                <td>60-62</td>
+              </tr>
+              <tr>
+                <td>{{ 'products.size_guide_chest' | t }} (cm)</td>
+                <td>88-92</td>
+                <td>96-100</td>
+                <td>104-108</td>
+                <td>112-116</td>
+                <td>120-124</td>
+              </tr>
+              <tr>
+                <td>{{ 'products.size_guide_waist' | t }} (cm)</td>
+                <td>76-80</td>
+                <td>84-88</td>
+                <td>92-96</td>
+                <td>100-104</td>
+                <td>108-112</td>
+              </tr>
+              <tr>
+                <td>{{ 'products.size_guide_hips' | t }} (cm)</td>
+                <td>90-94</td>
+                <td>98-102</td>
+                <td>106-110</td>
+                <td>114-118</td>
+                <td>122-126</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="size-guide-modal__tips">
+        <h3 class="size-guide-modal__subtitle">{{ 'products.size_guide_how_to_measure' | t }}</h3>
+        <ul class="size-guide-modal__tips-list">
+          <li><strong>{{ 'products.size_guide_bust' | t }}:</strong> {{ 'products.size_guide_bust_tip' | t }}</li>
+          <li><strong>{{ 'products.size_guide_waist' | t }}:</strong> {{ 'products.size_guide_waist_tip' | t }}</li>
+          <li><strong>{{ 'products.size_guide_hips' | t }}:</strong> {{ 'products.size_guide_hips_tip' | t }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .size-guide-modal {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal, 1000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-4);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+
+  .size-guide-modal[aria-hidden="false"] {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .size-guide-modal__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .size-guide-modal__container {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background-color: var(--color-background);
+  }
+
+  .size-guide-modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-4) var(--spacing-6);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    background: var(--color-background);
+    z-index: 1;
+  }
+
+  .size-guide-modal__title {
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    margin: 0;
+  }
+
+  .size-guide-modal__close {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .size-guide-modal__close svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .size-guide-modal__content {
+    padding: var(--spacing-6);
+  }
+
+  .size-guide-modal__tabs {
+    display: flex;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .size-guide-modal__tab {
+    padding: var(--spacing-2) var(--spacing-4);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    background: none;
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+
+  .size-guide-modal__tab:hover {
+    border-color: var(--color-primary);
+  }
+
+  .size-guide-modal__tab.is-active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-background);
+  }
+
+  .size-guide-modal__panel {
+    display: none;
+  }
+
+  .size-guide-modal__panel.is-active {
+    display: block;
+  }
+
+  .size-guide-modal__subtitle {
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    margin: 0 0 var(--spacing-4);
+  }
+
+  .size-guide-modal__table-wrapper {
+    overflow-x: auto;
+    margin-bottom: var(--spacing-6);
+  }
+
+  .size-guide-modal__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+  }
+
+  .size-guide-modal__table th,
+  .size-guide-modal__table td {
+    padding: var(--spacing-3);
+    text-align: center;
+    border: 1px solid var(--color-border);
+  }
+
+  .size-guide-modal__table th {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    font-weight: 500;
+  }
+
+  .size-guide-modal__table td:first-child {
+    text-align: left;
+    font-weight: 500;
+    background-color: #f9f9f9;
+  }
+
+  .size-guide-modal__tips {
+    padding-top: var(--spacing-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .size-guide-modal__tips-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--font-size-sm);
+    color: var(--color-accent);
+  }
+
+  .size-guide-modal__tips-list li {
+    margin-bottom: var(--spacing-2);
+    line-height: 1.6;
+  }
+</style>
+
+<script>
+  (function() {
+    const modal = document.getElementById('SizeGuideModal');
+    if (!modal) return;
+
+    // Open modal
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('[data-size-guide-open]')) {
+        e.preventDefault();
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    // Close modal
+    modal.querySelectorAll('[data-size-guide-close]').forEach(el => {
+      el.addEventListener('click', () => {
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Tab switching
+    modal.querySelectorAll('[data-tab]').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabName = tab.dataset.tab;
+
+        modal.querySelectorAll('[data-tab]').forEach(t => t.classList.remove('is-active'));
+        modal.querySelectorAll('[data-panel]').forEach(p => p.classList.remove('is-active'));
+
+        tab.classList.add('is-active');
+        modal.querySelector(`[data-panel="${tabName}"]`)?.classList.add('is-active');
+      });
+    });
+  })();
+</script>
