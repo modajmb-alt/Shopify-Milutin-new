@@ -4,7 +4,40 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "settings": {}
+      "blocks": {
+        "menu-1": {
+          "type": "menu",
+          "settings": {
+            "heading": "Kupovina",
+            "menu": "footer"
+          }
+        },
+        "menu-2": {
+          "type": "menu",
+          "settings": {
+            "heading": "Pomoć",
+            "menu": "footer"
+          }
+        },
+        "contact": {
+          "type": "contact",
+          "settings": {
+            "heading": "Kontakt",
+            "address": "Beograd, Srbija",
+            "phone": "+381 11 123 4567",
+            "email": "info@milutin.rs"
+          }
+        }
+      },
+      "block_order": ["menu-1", "menu-2", "contact"],
+      "settings": {
+        "show_newsletter": true,
+        "newsletter_heading": "Prijavite se na naš newsletter",
+        "newsletter_text": "Budite prvi koji će saznati o novim kolekcijama i ekskluzivnim ponudama.",
+        "show_social": true,
+        "show_payment": true,
+        "copyright_text": "Sva prava zadržana."
+      }
     }
   },
   "order": [
