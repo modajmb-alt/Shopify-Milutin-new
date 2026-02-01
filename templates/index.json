@@ -12,10 +12,9 @@
     "video-hero": {
       "type": "video-hero",
       "settings": {
+        "video": "shopify://files/videos/herovideo.mp4",
         "video_asset": "herovideo.mp4",
         "video_url": "",
-        "image": "",
-        "image_mobile": "",
         "heading": "NOVA KOLEKCIJA",
         "subheading": "Proleće / Leto 2025",
         "button_text": "OTKRIJTE",
