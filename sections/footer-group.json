@@ -32,6 +32,7 @@
       "block_order": ["menu-1", "menu-2", "contact"],
       "settings": {
         "show_logo": true,
+        "logo_text": "Premium moda za modernog čoveka.",
         "show_newsletter": true,
         "newsletter_heading": "Prijavite se na naš newsletter",
         "newsletter_text": "Budite prvi koji će saznati o novim kolekcijama i ekskluzivnim ponudama.",
