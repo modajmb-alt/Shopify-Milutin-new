@@ -59,9 +59,9 @@
   --spacing-24: 6rem;
 
   /* Header */
-  --header-height: 80px;
-  --header-height-scrolled: 60px;
-  --header-height-mobile: 60px;
+  --header-height: 100px;
+  --header-height-scrolled: 70px;
+  --header-height-mobile: 70px;
   --announcement-bar-height: 40px;
 
   /* Container */
