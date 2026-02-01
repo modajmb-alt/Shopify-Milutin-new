@@ -39,18 +39,20 @@
   <div class="product-card__media">
     <a href="{{ product.url }}" class="product-card__media-link">
       {%- if product.featured_image -%}
+        {%- assign primary_alt = product.featured_image.alt | default: product.title | escape -%}
         {{ product.featured_image | image_url: width: 600 | image_tag:
           class: 'product-card__image product-card__image--primary',
           loading: loading,
-          alt: product.featured_image.alt | escape,
+          alt: primary_alt,
           widths: '200, 300, 400, 600'
         }}
 
         {%- if show_secondary_image and product.images.size > 1 -%}
+          {%- assign secondary_alt = product.images[1].alt | default: product.title | escape -%}
           {{ product.images[1] | image_url: width: 600 | image_tag:
             class: 'product-card__image product-card__image--secondary',
             loading: 'lazy',
-            alt: product.images[1].alt | escape,
+            alt: secondary_alt,
             widths: '200, 300, 400, 600'
           }}
         {%- endif -%}
