@@ -1,0 +1,247 @@
+{%- comment -%}
+  FAQ Accordion Section
+  Collapsible frequently asked questions
+{%- endcomment -%}
+
+<section class="faq-section">
+  <div class="container">
+    {%- if section.settings.title != blank -%}
+      <h2 class="faq-section__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subtitle != blank -%}
+      <p class="faq-section__subtitle">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+
+    <div class="faq-accordion">
+      {%- for block in section.blocks -%}
+        <div class="faq-accordion__item" {{ block.shopify_attributes }}>
+          <button
+            type="button"
+            class="faq-accordion__trigger"
+            aria-expanded="false"
+            aria-controls="faq-content-{{ block.id }}"
+            data-accordion-trigger
+          >
+            <span class="faq-accordion__question">{{ block.settings.question }}</span>
+            <span class="faq-accordion__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+          <div
+            id="faq-content-{{ block.id }}"
+            class="faq-accordion__content"
+            aria-hidden="true"
+            data-accordion-content
+          >
+            <div class="faq-accordion__answer rte">
+              {{ block.settings.answer }}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    padding: var(--spacing-10) 0 var(--spacing-16);
+  }
+
+  .faq-section__title {
+    font-size: var(--font-size-xl);
+    font-weight: 300;
+    letter-spacing: var(--letter-spacing-wider);
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 var(--spacing-3);
+  }
+
+  .faq-section__subtitle {
+    font-size: var(--font-size-base);
+    color: var(--color-accent);
+    text-align: center;
+    margin: 0 0 var(--spacing-10);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .faq-accordion {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-accordion__item {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq-accordion__trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: var(--spacing-5) 0;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .faq-accordion__trigger:hover {
+    color: var(--color-accent);
+  }
+
+  .faq-accordion__question {
+    flex: 1;
+    padding-right: var(--spacing-4);
+  }
+
+  .faq-accordion__icon {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-accordion__trigger[aria-expanded="true"] .faq-accordion__icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-accordion__content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+  }
+
+  .faq-accordion__content[aria-hidden="false"] {
+    grid-template-rows: 1fr;
+  }
+
+  .faq-accordion__answer {
+    overflow: hidden;
+    padding-bottom: 0;
+    transition: padding 0.3s ease;
+  }
+
+  .faq-accordion__content[aria-hidden="false"] .faq-accordion__answer {
+    padding-bottom: var(--spacing-5);
+  }
+
+  .faq-accordion__answer {
+    font-size: var(--font-size-sm);
+    color: var(--color-accent);
+    line-height: 1.7;
+  }
+
+  .faq-accordion__answer p {
+    margin: 0 0 var(--spacing-3);
+  }
+
+  .faq-accordion__answer p:last-child {
+    margin-bottom: 0;
+  }
+</style>
+
+<script>
+  (function() {
+    document.querySelectorAll('[data-accordion-trigger]').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+        const content = trigger.nextElementSibling;
+
+        // Close all others if single expand mode
+        {% if section.settings.single_expand %}
+        document.querySelectorAll('[data-accordion-trigger]').forEach(t => {
+          if (t !== trigger) {
+            t.setAttribute('aria-expanded', 'false');
+            t.nextElementSibling?.setAttribute('aria-hidden', 'true');
+          }
+        });
+        {% endif %}
+
+        trigger.setAttribute('aria-expanded', !isExpanded);
+        content?.setAttribute('aria-hidden', isExpanded);
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Accordion",
+  "tag": "section",
+  "class": "section-faq",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "checkbox",
+      "id": "single_expand",
+      "label": "Only one open at a time",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is your return policy?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>We offer a 30-day return policy for all unworn items in their original condition with tags attached.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Accordion",
+      "blocks": [
+        {
+          "type": "question",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We offer a 30-day return policy for all unworn items in their original condition with tags attached.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "<p>Standard shipping takes 3-5 business days. Express shipping is available for 1-2 business day delivery.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "Do you offer international shipping?",
+            "answer": "<p>Yes, we ship to most countries worldwide. Shipping rates and delivery times vary by location.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
