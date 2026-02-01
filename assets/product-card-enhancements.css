@@ -294,3 +294,117 @@
   font-size: var(--font-size-xs);
   color: var(--color-accent);
 }
+
+/* Color Swatches
+   ========================================================================== */
+.product-card__swatches {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  margin-top: var(--spacing-2);
+}
+
+.product-card__swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.product-card__swatch:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px var(--color-background), 0 0 0 3px var(--color-primary);
+}
+
+/* Common color mappings */
+.product-card__swatch[style*="crna"],
+.product-card__swatch[style*="black"] {
+  background-color: #000 !important;
+}
+
+.product-card__swatch[style*="bela"],
+.product-card__swatch[style*="white"] {
+  background-color: #fff !important;
+}
+
+.product-card__swatch[style*="crvena"],
+.product-card__swatch[style*="red"] {
+  background-color: #dc2626 !important;
+}
+
+.product-card__swatch[style*="plava"],
+.product-card__swatch[style*="blue"] {
+  background-color: #2563eb !important;
+}
+
+.product-card__swatch[style*="zelena"],
+.product-card__swatch[style*="green"] {
+  background-color: #16a34a !important;
+}
+
+.product-card__swatch[style*="zuta"],
+.product-card__swatch[style*="yellow"] {
+  background-color: #eab308 !important;
+}
+
+.product-card__swatch[style*="narandzasta"],
+.product-card__swatch[style*="orange"] {
+  background-color: #ea580c !important;
+}
+
+.product-card__swatch[style*="ljubicasta"],
+.product-card__swatch[style*="purple"] {
+  background-color: #9333ea !important;
+}
+
+.product-card__swatch[style*="roze"],
+.product-card__swatch[style*="pink"] {
+  background-color: #ec4899 !important;
+}
+
+.product-card__swatch[style*="siva"],
+.product-card__swatch[style*="gray"],
+.product-card__swatch[style*="grey"] {
+  background-color: #6b7280 !important;
+}
+
+.product-card__swatch[style*="braon"],
+.product-card__swatch[style*="brown"] {
+  background-color: #92400e !important;
+}
+
+.product-card__swatch[style*="bež"],
+.product-card__swatch[style*="bez"],
+.product-card__swatch[style*="beige"] {
+  background-color: #d4c4a8 !important;
+}
+
+.product-card__swatch[style*="teget"],
+.product-card__swatch[style*="navy"] {
+  background-color: #1e3a5f !important;
+}
+
+.product-card__swatch[style*="bordo"],
+.product-card__swatch[style*="burgundy"],
+.product-card__swatch[style*="maroon"] {
+  background-color: #7f1d1d !important;
+}
+
+.product-card__swatch[style*="krem"],
+.product-card__swatch[style*="cream"] {
+  background-color: #fef3c7 !important;
+}
+
+.product-card__swatch[style*="tirkiz"],
+.product-card__swatch[style*="turquoise"],
+.product-card__swatch[style*="teal"] {
+  background-color: #14b8a6 !important;
+}
+
+.product-card__swatch-more {
+  font-size: var(--font-size-xs);
+  color: var(--color-accent);
+  margin-left: var(--spacing-1);
+}

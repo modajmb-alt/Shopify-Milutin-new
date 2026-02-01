@@ -166,8 +166,19 @@
         {%- assign option_name_lower = option.name | downcase -%}
         {%- if option_name_lower == 'color' or option_name_lower == 'boja' -%}
           {%- if option.values.size > 1 -%}
-            <div class="product-card__colors">
-              <span class="product-card__colors-count">{{ option.values.size }} {{ 'products.colors' | t | downcase }}</span>
+            <div class="product-card__swatches">
+              {%- for color_value in option.values limit: 5 -%}
+                {%- assign color_handle = color_value | handle -%}
+                <span
+                  class="product-card__swatch"
+                  style="background-color: {{ color_handle }};"
+                  title="{{ color_value }}"
+                  data-color="{{ color_value }}"
+                ></span>
+              {%- endfor -%}
+              {%- if option.values.size > 5 -%}
+                <span class="product-card__swatch-more">+{{ option.values.size | minus: 5 }}</span>
+              {%- endif -%}
             </div>
           {%- endif -%}
         {%- endif -%}
