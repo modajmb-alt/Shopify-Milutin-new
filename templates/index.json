@@ -19,10 +19,10 @@
         "subheading": "Zima / Proleće 2026",
         "button_text": "OTKRIJTE",
         "button_link": "/collections/novo",
-        "height": "large",
+        "height": "full",
         "text_position": "bottom-center",
         "text_color": "#ffffff",
-        "overlay_opacity": 20,
+        "overlay_opacity": 25,
         "show_scroll_indicator": true
       }
     },
