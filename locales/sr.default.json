@@ -93,7 +93,6 @@
     "media_thumbnail": "Učitaj sliku {{ position }} u prikaz galerije",
     "related_products": "Možda vam se svidi",
     "recently_viewed": "Nedavno pregledano",
-    "quick_view": "Brzi pregled",
     "add_to_wishlist": "Dodaj u listu želja",
     "remove_from_wishlist": "Ukloni iz liste želja",
     "add_size": "Dodaj veličinu {{ size }}",
@@ -109,10 +108,15 @@
     "remove": "Ukloni",
     "update": "Ažuriraj",
     "shipping_note": "Dostava se obračunava na sledećem koraku",
+    "product": "Proizvod",
+    "quantity": "Količina",
+    "note": "Napomena",
+    "note_placeholder": "Dodajte napomenu uz vašu porudžbinu...",
     "item_count": {
       "one": "{{ count }} artikal",
       "other": "{{ count }} artikala"
-    }
+    },
+    "view_cart": "Pogledaj korpu"
   },
   "customer": {
     "account": {
@@ -208,6 +212,9 @@
       "submit": "Aktiviraj nalog",
       "decline": "Odbij pozivnicu"
     }
+  },
+  "newsletter": {
+    "no_thanks": "Ne, hvala"
   },
   "footer": {
     "newsletter": {

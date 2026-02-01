@@ -245,14 +245,14 @@
     <main class="gift-card">
       <div class="gift-card__logo">
         {%- if settings.logo != blank -%}
-          <img src="{{ settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}">
+          {{ settings.logo | image_url: width: 200 | image_tag: alt: shop.name, class: 'gift-card__logo-img', loading: 'eager' }}
         {%- else -%}
           <span class="gift-card__logo-text">{{ shop.name }}</span>
         {%- endif -%}
       </div>
 
       <div class="gift-card__image-wrapper">
-        <img src="{{ 'gift-card/card.svg' | shopify_asset_url }}" class="gift-card__image" alt="{{ 'gift_card.title' | t }}">
+        <img src="{{ 'gift-card/card.svg' | shopify_asset_url }}" class="gift-card__image" alt="{{ 'gift_card.title' | t }}" width="400" height="252">
         {%- unless gift_card.expired -%}
           {%- if gift_card.balance != gift_card.initial_value -%}
             <span class="gift-card__badge">{{ 'gift_card.balance_remaining' | t }}</span>

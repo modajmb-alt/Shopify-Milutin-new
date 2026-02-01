@@ -93,7 +93,6 @@
     "media_thumbnail": "Load image {{ position }} in gallery view",
     "related_products": "You may also like",
     "recently_viewed": "Recently Viewed",
-    "quick_view": "Quick view",
     "add_to_wishlist": "Add to wishlist",
     "remove_from_wishlist": "Remove from wishlist",
     "add_size": "Add size {{ size }}",
@@ -109,10 +108,15 @@
     "remove": "Remove",
     "update": "Update",
     "shipping_note": "Shipping calculated at checkout",
+    "product": "Product",
+    "quantity": "Quantity",
+    "note": "Order note",
+    "note_placeholder": "Add a note to your order...",
     "item_count": {
       "one": "{{ count }} item",
       "other": "{{ count }} items"
-    }
+    },
+    "view_cart": "View cart"
   },
   "customer": {
     "account": {
@@ -208,6 +212,9 @@
       "submit": "Activate account",
       "decline": "Decline invitation"
     }
+  },
+  "newsletter": {
+    "no_thanks": "No thanks"
   },
   "footer": {
     "newsletter": {
