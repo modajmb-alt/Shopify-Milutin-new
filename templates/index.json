@@ -261,27 +261,27 @@
           "type": "testimonial",
           "settings": {
             "rating": 5,
-            "text": "Oduševljena sam kvalitetom! Haljina izgleda još lepše uživo. Definitivno ću ponovo kupovati.",
-            "author": "Marija S.",
-            "location": "Beograd"
+            "quote": "Oduševljena sam kvalitetom! Haljina izgleda još lepše uživo. Definitivno ću ponovo kupovati.",
+            "author_name": "Marija S.",
+            "author_title": "Beograd"
           }
         },
         "testimonial-2": {
           "type": "testimonial",
           "settings": {
             "rating": 5,
-            "text": "Brza dostava i predivna pakovanja. Svaka kupovina je pravo zadovoljstvo.",
-            "author": "Ana M.",
-            "location": "Novi Sad"
+            "quote": "Brza dostava i predivna pakovanja. Svaka kupovina je pravo zadovoljstvo.",
+            "author_name": "Ana M.",
+            "author_title": "Novi Sad"
           }
         },
         "testimonial-3": {
           "type": "testimonial",
           "settings": {
             "rating": 5,
-            "text": "Konačno prodavnica sa stilom koji volim. Kvalitet iznad očekivanja!",
-            "author": "Jelena P.",
-            "location": "Niš"
+            "quote": "Konačno prodavnica sa stilom koji volim. Kvalitet iznad očekivanja!",
+            "author_name": "Jelena P.",
+            "author_title": "Niš"
           }
         }
       },
@@ -293,7 +293,7 @@
       "settings": {
         "title": "ŠTA KAŽU NAŠE KUPKE",
         "autoplay": true,
-        "autoplay_speed": 5
+        "autoplay_speed": 5000
       }
     }
   },
