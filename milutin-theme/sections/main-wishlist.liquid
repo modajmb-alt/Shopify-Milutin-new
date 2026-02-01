@@ -1,0 +1,238 @@
+<section class="wishlist-page">
+  <div class="container">
+    <h1 class="wishlist-page__title">{{ 'wishlist.title' | t }}</h1>
+
+    <div class="wishlist-page__content" data-wishlist-page>
+      <div class="wishlist-page__empty" data-wishlist-empty>
+        <p>{{ 'wishlist.empty' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">
+          {{ 'wishlist.browse_products' | t }}
+        </a>
+      </div>
+
+      <div class="wishlist-page__grid" data-wishlist-grid style="display: none;">
+        {%- comment -%} Items will be rendered via JavaScript {%- endcomment -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    const storageKey = 'milutin_wishlist';
+    const grid = document.querySelector('[data-wishlist-grid]');
+    const empty = document.querySelector('[data-wishlist-empty]');
+
+    function loadWishlist() {
+      try {
+        return JSON.parse(localStorage.getItem(storageKey)) || [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveWishlist(wishlist) {
+      localStorage.setItem(storageKey, JSON.stringify(wishlist));
+    }
+
+    function removeItem(productId) {
+      let wishlist = loadWishlist();
+      wishlist = wishlist.filter(p => p.id !== productId);
+      saveWishlist(wishlist);
+      renderWishlist();
+
+      // Dispatch event for other components
+      document.dispatchEvent(new CustomEvent('milutin:wishlist:updated', {
+        detail: { wishlist, count: wishlist.length }
+      }));
+    }
+
+    function renderWishlist() {
+      const wishlist = loadWishlist();
+
+      if (wishlist.length === 0) {
+        grid.style.display = 'none';
+        empty.style.display = 'block';
+        return;
+      }
+
+      grid.style.display = 'grid';
+      empty.style.display = 'none';
+
+      grid.innerHTML = wishlist.map(product => `
+        <div class="wishlist-item" data-wishlist-item data-product-id="${product.id}">
+          <a href="${product.url}" class="wishlist-item__media">
+            <img src="${product.image}" alt="${product.title}" class="wishlist-item__image">
+          </a>
+          <div class="wishlist-item__info">
+            <a href="${product.url}" class="wishlist-item__title">${product.title}</a>
+            <p class="wishlist-item__price">${product.price}</p>
+            <div class="wishlist-item__actions">
+              <a href="${product.url}" class="btn btn--secondary btn--sm">
+                {{ 'wishlist.view_product' | t }}
+              </a>
+              <button type="button" class="wishlist-item__remove" data-remove-wishlist="${product.id}" aria-label="{{ 'wishlist.remove' | t }}">
+                {% render 'icon-close' %}
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // Add remove listeners
+      grid.querySelectorAll('[data-remove-wishlist]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          removeItem(btn.dataset.removeWishlist);
+        });
+      });
+    }
+
+    renderWishlist();
+
+    // Listen for updates from other pages
+    document.addEventListener('milutin:wishlist:updated', renderWishlist);
+  })();
+</script>
+
+<style>
+  .wishlist-page {
+    padding: var(--spacing-8) 0 var(--spacing-16);
+  }
+
+  @media (min-width: 750px) {
+    .wishlist-page {
+      padding: var(--spacing-12) 0 var(--spacing-20);
+    }
+  }
+
+  .wishlist-page__title {
+    font-size: var(--font-size-xl);
+    font-weight: 300;
+    letter-spacing: var(--letter-spacing-wider);
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 var(--spacing-10);
+  }
+
+  @media (min-width: 750px) {
+    .wishlist-page__title {
+      font-size: var(--font-size-2xl);
+    }
+  }
+
+  .wishlist-page__empty {
+    text-align: center;
+    padding: var(--spacing-10) 0;
+  }
+
+  .wishlist-page__empty p {
+    font-size: var(--font-size-base);
+    color: var(--color-accent);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .wishlist-page__grid {
+    display: grid;
+    gap: var(--spacing-6);
+  }
+
+  @media (min-width: 750px) {
+    .wishlist-page__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-8);
+    }
+  }
+
+  @media (min-width: 990px) {
+    .wishlist-page__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .wishlist-page__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .wishlist-item {
+    position: relative;
+  }
+
+  .wishlist-item__media {
+    display: block;
+    margin-bottom: var(--spacing-3);
+  }
+
+  .wishlist-item__image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+
+  .wishlist-item__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .wishlist-item__title {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .wishlist-item__title:hover {
+    text-decoration: underline;
+  }
+
+  .wishlist-item__price {
+    font-size: var(--font-size-sm);
+    color: var(--color-accent);
+    margin: 0;
+  }
+
+  .wishlist-item__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    margin-top: var(--spacing-2);
+  }
+
+  .wishlist-item__remove {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .wishlist-item__remove:hover {
+    border-color: var(--color-error);
+    color: var(--color-error);
+  }
+
+  .wishlist-item__remove svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .btn--sm {
+    padding: var(--spacing-2) var(--spacing-4);
+    font-size: var(--font-size-xs);
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Wishlist",
+  "tag": "section",
+  "class": "section-wishlist"
+}
+{% endschema %}

@@ -262,6 +262,35 @@
     "next": "Next",
     "page": "Page {{ current }} of {{ total }}"
   },
+  "gift_card": {
+    "title": "Gift Card",
+    "balance_remaining": "Remaining",
+    "code_label": "Gift card code",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "expires": "Valid until {{ date }}",
+    "expired": "Expired {{ date }}",
+    "instructions": "Use this code at checkout to redeem your gift card.",
+    "shop_now": "Shop now",
+    "print": "Print"
+  },
+  "password": {
+    "title": "Coming Soon",
+    "message": "We're working on something exciting. Enter your password to access the store or sign up to be notified when we launch.",
+    "password_label": "Password",
+    "password_placeholder": "Enter password",
+    "enter": "Enter",
+    "newsletter_title": "Be the first to know",
+    "powered_by": "Powered by",
+    "admin_link": "Admin login"
+  },
+  "wishlist": {
+    "title": "Wishlist",
+    "empty": "Your wishlist is empty",
+    "browse_products": "Browse products",
+    "view_product": "View",
+    "remove": "Remove"
+  },
   "accessibility": {
     "skip_to_content": "Skip to content",
     "close_menu": "Close menu",

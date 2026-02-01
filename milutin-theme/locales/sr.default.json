@@ -263,6 +263,35 @@
     "next": "Sledeća",
     "page": "Stranica {{ current }} od {{ total }}"
   },
+  "gift_card": {
+    "title": "Poklon kartica",
+    "balance_remaining": "Preostalo",
+    "code_label": "Kod poklon kartice",
+    "copy": "Kopiraj",
+    "copied": "Kopirano!",
+    "expires": "Važi do {{ date }}",
+    "expired": "Istekla {{ date }}",
+    "instructions": "Koristite ovaj kod na checkout stranici da biste iskoristili poklon karticu.",
+    "shop_now": "Kupujte sada",
+    "print": "Štampaj"
+  },
+  "password": {
+    "title": "Uskoro",
+    "message": "Radimo na nečem uzbudljivom. Unesite lozinku za pristup prodavnici ili se prijavite da budete obavešteni kada se pokrenemo.",
+    "password_label": "Lozinka",
+    "password_placeholder": "Unesite lozinku",
+    "enter": "Uđi",
+    "newsletter_title": "Budite prvi koji će saznati",
+    "powered_by": "Pokreće",
+    "admin_link": "Admin prijava"
+  },
+  "wishlist": {
+    "title": "Lista želja",
+    "empty": "Vaša lista želja je prazna",
+    "browse_products": "Pregledajte proizvode",
+    "view_product": "Pogledaj",
+    "remove": "Ukloni"
+  },
   "accessibility": {
     "skip_to_content": "Preskoči na sadržaj",
     "close_menu": "Zatvori meni",
