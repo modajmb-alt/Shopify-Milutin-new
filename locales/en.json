@@ -21,6 +21,8 @@
     "share": "Share",
     "email": "Email",
     "phone": "Phone",
+    "home": "Home",
+    "breadcrumbs": "Breadcrumbs",
     "404": {
       "title": "Page not found",
       "subtext": "The page you're looking for doesn't exist or has been moved.",
@@ -105,7 +107,8 @@
     "add_to_wishlist": "Add to wishlist",
     "remove_from_wishlist": "Remove from wishlist",
     "add_size": "Add size {{ size }}",
-    "colors": "colors"
+    "colors": "colors",
+    "low_stock": "Only {{ count }} left in stock"
   },
   "cart": {
     "title": "Cart",

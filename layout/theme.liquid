@@ -119,6 +119,7 @@
       window.routes = {
         predictive_search_url: '{{ routes.predictive_search_url }}'
       };
+      window.shopCurrency = {{ cart.currency.iso_code | json }};
       window.translations = {
         searchPlaceholder: {{ 'search.placeholder' | t | json }},
         searchNoResults: {{ 'search.no_results_short' | t | json }},

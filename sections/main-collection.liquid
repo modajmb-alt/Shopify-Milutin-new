@@ -9,6 +9,7 @@
 
 <section class="collection" data-section-id="{{ section.id }}">
   <div class="container">
+    {% render 'breadcrumbs' %}
     {%- paginate collection.products by products_per_page -%}
 
       {%- if enable_filtering or enable_sorting -%}

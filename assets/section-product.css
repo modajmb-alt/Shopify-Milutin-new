@@ -591,3 +591,42 @@
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* Size Guide Link */
+.product__size-guide-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-2);
+  padding: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.product__size-guide-link:hover {
+  color: var(--color-primary);
+}
+
+/* Low Stock Indicator */
+.product__low-stock {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+  background-color: #fff8e6;
+  border: 1px solid #f5c518;
+  border-radius: 4px;
+  font-size: var(--font-size-sm);
+  color: #8a6d00;
+}
+
+.product__low-stock-icon {
+  font-size: var(--font-size-base);
+}

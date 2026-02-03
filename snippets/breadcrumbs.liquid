@@ -1,0 +1,129 @@
+{%- comment -%}
+  Breadcrumbs Navigation
+  Shows: Home > Collection > Product (or Home > Collection for collection pages)
+
+  Usage: {% render 'breadcrumbs' %}
+{%- endcomment -%}
+
+<nav class="breadcrumbs" aria-label="{{ 'general.breadcrumbs' | t }}">
+  <ol class="breadcrumbs__list">
+    <li class="breadcrumbs__item">
+      <a href="{{ routes.root_url }}" class="breadcrumbs__link">
+        {{ 'general.home' | t }}
+      </a>
+    </li>
+
+    {%- if template.name == 'product' -%}
+      {%- if product.collections.size > 0 -%}
+        <li class="breadcrumbs__item">
+          <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+          <a href="{{ product.collections.first.url }}" class="breadcrumbs__link">
+            {{ product.collections.first.title }}
+          </a>
+        </li>
+      {%- endif -%}
+      <li class="breadcrumbs__item">
+        <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+        <span class="breadcrumbs__current" aria-current="page">
+          {{ product.title }}
+        </span>
+      </li>
+
+    {%- elsif template.name == 'collection' -%}
+      <li class="breadcrumbs__item">
+        <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+        <span class="breadcrumbs__current" aria-current="page">
+          {{ collection.title }}
+        </span>
+      </li>
+
+    {%- elsif template.name == 'blog' -%}
+      <li class="breadcrumbs__item">
+        <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+        <span class="breadcrumbs__current" aria-current="page">
+          {{ blog.title }}
+        </span>
+      </li>
+
+    {%- elsif template.name == 'article' -%}
+      <li class="breadcrumbs__item">
+        <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+        <a href="{{ blog.url }}" class="breadcrumbs__link">
+          {{ blog.title }}
+        </a>
+      </li>
+      <li class="breadcrumbs__item">
+        <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+        <span class="breadcrumbs__current" aria-current="page">
+          {{ article.title }}
+        </span>
+      </li>
+
+    {%- elsif template.name == 'page' -%}
+      <li class="breadcrumbs__item">
+        <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+        <span class="breadcrumbs__current" aria-current="page">
+          {{ page.title }}
+        </span>
+      </li>
+
+    {%- elsif template.name == 'search' -%}
+      <li class="breadcrumbs__item">
+        <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+        <span class="breadcrumbs__current" aria-current="page">
+          {{ 'search.title' | t }}
+        </span>
+      </li>
+    {%- endif -%}
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs {
+    padding: var(--spacing-4) 0;
+    font-size: var(--font-size-sm);
+  }
+
+  .breadcrumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .breadcrumbs__item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
+  .breadcrumbs__separator {
+    color: var(--color-border);
+  }
+
+  .breadcrumbs__link {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .breadcrumbs__link:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .breadcrumbs__current {
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+
+  @media (max-width: 749px) {
+    .breadcrumbs {
+      padding: var(--spacing-3) 0;
+      font-size: var(--font-size-xs);
+    }
+  }
+</style>

@@ -21,6 +21,8 @@
     "share": "Podeli",
     "email": "Email",
     "phone": "Telefon",
+    "home": "Početna",
+    "breadcrumbs": "Navigacija",
     "404": {
       "title": "Stranica nije pronađena",
       "subtext": "Stranica koju tražite ne postoji ili je premeštena.",
@@ -105,7 +107,8 @@
     "add_to_wishlist": "Dodaj u listu želja",
     "remove_from_wishlist": "Ukloni iz liste želja",
     "add_size": "Dodaj veličinu {{ size }}",
-    "colors": "boje"
+    "colors": "boje",
+    "low_stock": "Samo još {{ count }} na stanju"
   },
   "cart": {
     "title": "Korpa",

@@ -8,6 +8,7 @@
 
 <section class="product" data-section-id="{{ section.id }}">
   <div class="container">
+    {% render 'breadcrumbs' %}
     <div class="product__wrapper{% if enable_sticky %} product__wrapper--sticky{% endif %}">
 
       {%- comment -%} Product Media Gallery {%- endcomment -%}
@@ -165,6 +166,16 @@
                   </div>
                 {%- endfor -%}
               </div>
+
+              {%- comment -%} Size Guide Link - shows for Size/Veličina options {%- endcomment -%}
+              {%- for option in product.options_with_values -%}
+                {%- if option.name == 'Size' or option.name == 'Veličina' -%}
+                  <button type="button" class="product__size-guide-link" data-size-guide-open>
+                    {{ 'products.size_guide' | t }}
+                  </button>
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
             {%- endunless -%}
 
             <div class="product__quantity">
@@ -199,6 +210,16 @@
                 </button>
               </div>
             </div>
+
+            {%- comment -%} Low Stock Indicator {%- endcomment -%}
+            {%- if current_variant.inventory_management and current_variant.inventory_policy == 'deny' -%}
+              {%- if current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= 5 -%}
+                <div class="product__low-stock">
+                  <span class="product__low-stock-icon" aria-hidden="true">⚠</span>
+                  {{ 'products.low_stock' | t: count: current_variant.inventory_quantity }}
+                </div>
+              {%- endif -%}
+            {%- endif -%}
 
             <div class="product__buttons">
               <button

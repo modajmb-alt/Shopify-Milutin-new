@@ -211,9 +211,10 @@
     }
 
     formatMoney(cents) {
-      // Simple money formatting - would use Shopify's money_format in production
+      // Use Shopify's currency format if available, fallback to shop currency
       const amount = (cents / 100).toFixed(2);
-      return `${amount} RSD`;
+      const currency = window.Shopify?.currency?.active || window.shopCurrency || 'RSD';
+      return `${amount} ${currency}`;
     }
 
     updateAddToCartButton(variant) {
