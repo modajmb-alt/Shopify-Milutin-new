@@ -32,23 +32,25 @@
         "new-arrivals": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2026-02-03_at_16.00.33-2.jpg",
             "subtitle": "Upravo stiglo",
             "title": "NOVO",
             "button_text": "POGLEDAJ",
             "link": "/collections/novo",
             "text_color": "#ffffff",
-            "overlay_opacity": 15
+            "overlay_opacity": 25
           }
         },
         "bestsellers": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2026-02-03_at_16.00.34.jpg",
             "subtitle": "Vaši favoriti",
             "title": "NAJPRODAVANIJE",
             "button_text": "POGLEDAJ",
             "link": "/collections/frontpage",
             "text_color": "#ffffff",
-            "overlay_opacity": 15
+            "overlay_opacity": 25
           }
         }
       },
@@ -90,6 +92,7 @@
           "type": "collection",
           "settings": {
             "collection": "haljine",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-02-03_at_16.00.33.jpg",
             "title": "HALJINE",
             "subtitle": "Za svaku priliku",
             "button_text": "POGLEDAJ",
@@ -138,6 +141,7 @@
           "type": "collection",
           "settings": {
             "collection": "kaputi",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-02-03_at_16.00.32.jpg",
             "title": "KAPUTI",
             "subtitle": "Za svaku sezonu",
             "button_text": "POGLEDAJ",
