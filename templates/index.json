@@ -105,8 +105,9 @@
           "type": "collection",
           "settings": {
             "collection": "kosulje",
-            "title": "KOŠULJE",
-            "subtitle": "Elegancija",
+            "image": "shopify://shop_images/2026-02-11_14.50.10.jpg",
+            "title": "Trenerke",
+            "subtitle": "Udobnost",
             "button_text": "POGLEDAJ",
             "size": "small",
             "text_color": "#ffffff",
@@ -117,7 +118,8 @@
           "type": "collection",
           "settings": {
             "collection": "suknje",
-            "title": "SUKNJE",
+            "image": "shopify://shop_images/2026-02-11_14.50.13.jpg",
+            "title": "Bluze",
             "subtitle": "Moderna klasika",
             "button_text": "POGLEDAJ",
             "size": "small",
@@ -129,6 +131,7 @@
           "type": "collection",
           "settings": {
             "collection": "pantalone",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-02-03_at_16.00.53.jpg",
             "title": "PANTALONE",
             "subtitle": "Savršen kroj",
             "button_text": "POGLEDAJ",
@@ -166,6 +169,7 @@
     "full-width-editorial": {
       "type": "full-width-image",
       "settings": {
+        "image": "shopify://shop_images/photo-1577900232427-18219b9166a0.jpg",
         "subheading": "Ekskluzivno",
         "heading": "KOLEKCIJA ELEGANCE",
         "button_text": "OTKRIJTE",
@@ -180,6 +184,7 @@
     "image-with-text": {
       "type": "image-with-text",
       "settings": {
+        "image": "shopify://shop_images/photo-1596755094514-f87e34085b2c.jpg",
         "heading": "VAŠA PRIČA, VAŠ STIL",
         "text": "<p>Verujemo da svaka žena zaslužuje da se oseća posebno. Naša kolekcija pažljivo je odabrana da odražava vašu jedinstvenu lepotu i stil. Od elegantnih haljina do svakodnevnih kombinacija - pronađite ono što vas čini srećnom.</p>",
         "button_text": "O NAMA",
@@ -236,6 +241,7 @@
         "editorial-1": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/Whisk_6f2321da4b8dae9a0014973fd715b34edr.jpg",
             "subtitle": "Samo online",
             "title": "LIMITIRANA EDICIJA",
             "button_text": "OTKRIJTE",
@@ -247,6 +253,7 @@
         "editorial-2": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/Whisk_ded1a52a7faa1c2bfe94c206b44c5830dr.jpg",
             "subtitle": "Do -50%",
             "title": "SNIŽENJE",
             "button_text": "KUPUJTE SADA",
