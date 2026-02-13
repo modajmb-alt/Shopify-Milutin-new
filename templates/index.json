@@ -3,13 +3,11 @@
     "video-hero": {
       "type": "video-hero",
       "settings": {
-        "video": "shopify://files/videos/herovideo.mp4",
         "video_asset": "herovideo.mp4",
-        "video_url": "",
         "heading": "NOVA KOLEKCIJA",
         "subheading": "Zima / Proleće 2026",
         "button_text": "OTKRIJTE",
-        "button_link": "/collections/novo",
+        "button_link": "",
         "height": "full",
         "text_position": "bottom-center",
         "text_color": "#ffffff",
@@ -23,11 +21,10 @@
         "new-arrivals": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/WhatsApp_Image_2026-02-03_at_16.00.33-2.jpg",
             "subtitle": "Upravo stiglo",
             "title": "NOVO",
             "button_text": "POGLEDAJ",
-            "link": "/collections/novo",
+            "link": "",
             "text_color": "#ffffff",
             "overlay_opacity": 25
           }
@@ -35,11 +32,10 @@
         "bestsellers": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/WhatsApp_Image_2026-02-03_at_16.00.34.jpg",
             "subtitle": "Vaši favoriti",
             "title": "NAJPRODAVANIJE",
             "button_text": "POGLEDAJ",
-            "link": "/collections/frontpage",
+            "link": "",
             "text_color": "#ffffff",
             "overlay_opacity": 25
           }
@@ -68,7 +64,6 @@
     "featured-products": {
       "type": "featured-products",
       "settings": {
-        "collection": "novo",
         "heading": "NOVO U PONUDI",
         "subheading": "Najnoviji komadi iz naše kolekcije",
         "products_count": 4,
@@ -82,8 +77,6 @@
         "col-1": {
           "type": "collection",
           "settings": {
-            "collection": "haljine",
-            "image": "shopify://shop_images/WhatsApp_Image_2026-02-03_at_16.00.33.jpg",
             "title": "HALJINE",
             "subtitle": "Za svaku priliku",
             "button_text": "POGLEDAJ",
@@ -95,8 +88,6 @@
         "col-2": {
           "type": "collection",
           "settings": {
-            "collection": "kosulje",
-            "image": "shopify://shop_images/2026-02-11_14.50.10.jpg",
             "title": "Trenerke",
             "subtitle": "Udobnost",
             "button_text": "POGLEDAJ",
@@ -108,8 +99,6 @@
         "col-3": {
           "type": "collection",
           "settings": {
-            "collection": "suknje",
-            "image": "shopify://shop_images/2026-02-11_14.50.13.jpg",
             "title": "Bluze",
             "subtitle": "Moderna klasika",
             "button_text": "POGLEDAJ",
@@ -121,8 +110,6 @@
         "col-4": {
           "type": "collection",
           "settings": {
-            "collection": "pantalone",
-            "image": "shopify://shop_images/WhatsApp_Image_2026-02-03_at_16.00.53.jpg",
             "title": "PANTALONE",
             "subtitle": "Savršen kroj",
             "button_text": "POGLEDAJ",
@@ -134,8 +121,6 @@
         "col-5": {
           "type": "collection",
           "settings": {
-            "collection": "kaputi",
-            "image": "shopify://shop_images/WhatsApp_Image_2026-02-03_at_16.00.32.jpg",
             "title": "KAPUTI",
             "subtitle": "Za svaku sezonu",
             "button_text": "POGLEDAJ",
@@ -160,11 +145,10 @@
     "full-width-editorial": {
       "type": "full-width-image",
       "settings": {
-        "image": "shopify://shop_images/photo-1577900232427-18219b9166a0.jpg",
         "subheading": "Ekskluzivno",
         "heading": "KOLEKCIJA ELEGANCE",
         "button_text": "OTKRIJTE",
-        "button_link": "/collections/haljine",
+        "button_link": "",
         "height": "large",
         "text_position": "center",
         "text_color": "#ffffff",
@@ -175,7 +159,6 @@
     "image-with-text": {
       "type": "image-with-text",
       "settings": {
-        "image": "shopify://shop_images/photo-1596755094514-f87e34085b2c.jpg",
         "heading": "VAŠA PRIČA, VAŠ STIL",
         "text": "<p>Verujemo da svaka žena zaslužuje da se oseća posebno. Naša kolekcija pažljivo je odabrana da odražava vašu jedinstvenu lepotu i stil. Od elegantnih haljina do svakodnevnih kombinacija - pronađite ono što vas čini srećnom.</p>",
         "button_text": "O NAMA",
@@ -192,7 +175,6 @@
         "fc-1": {
           "type": "collection",
           "settings": {
-            "collection": "aksesoari",
             "title": "AKSESORI",
             "subtitle": "Torbe, nakit, šalovi"
           }
@@ -200,7 +182,6 @@
         "fc-2": {
           "type": "collection",
           "settings": {
-            "collection": "dzemperi",
             "title": "DŽEMPERI",
             "subtitle": "Za hladne dane"
           }
@@ -208,7 +189,6 @@
         "fc-3": {
           "type": "collection",
           "settings": {
-            "collection": "sakoi",
             "title": "SAKOI",
             "subtitle": "Poslovni stil"
           }
@@ -232,11 +212,10 @@
         "editorial-1": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Whisk_6f2321da4b8dae9a0014973fd715b34edr.jpg",
             "subtitle": "Samo online",
             "title": "LIMITIRANA EDICIJA",
             "button_text": "OTKRIJTE",
-            "link": "/collections/novo",
+            "link": "",
             "text_color": "#ffffff",
             "overlay_opacity": 20
           }
@@ -244,11 +223,10 @@
         "editorial-2": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Whisk_ded1a52a7faa1c2bfe94c206b44c5830dr.jpg",
             "subtitle": "Do -50%",
             "title": "SNIŽENJE",
             "button_text": "KUPUJTE SADA",
-            "link": "/collections/all",
+            "link": "",
             "text_color": "#ffffff",
             "overlay_opacity": 20
           }
