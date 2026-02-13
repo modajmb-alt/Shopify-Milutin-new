@@ -56,6 +56,16 @@
   }
 }
 
+/* Safety net: if JS animations haven't fired after CSS loads,
+   ensure content is still visible via no-js fallback */
+.no-js [data-animate],
+.no-js [data-animate-fade],
+.no-js [data-animate-slide] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 /* Video Hero Section
    ========================================================================== */
 .video-hero {

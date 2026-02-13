@@ -181,6 +181,18 @@
 
     {% render 'search-modal' %}
 
+    {%- comment -%} Safety net: reveal animated elements if animation JS fails to load {%- endcomment -%}
+    {%- if template.name == 'index' -%}
+      <script>
+        window.addEventListener('load', function() {
+          setTimeout(function() {
+            var els = document.querySelectorAll('[data-animate]:not(.is-visible),[data-animate-fade]:not(.is-visible),[data-animate-slide]:not(.is-visible)');
+            for (var i = 0; i < els.length; i++) els[i].classList.add('is-visible');
+          }, 2000);
+        });
+      </script>
+    {%- endif -%}
+
     {%- comment -%} Critical JS - loads on every page {%- endcomment -%}
     <script src="{{ 'section-header.js' | asset_url }}" defer></script>
     <script src="{{ 'section-search.js' | asset_url }}" defer></script>
